@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appearance</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.2/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    rel="stylesheet"
+  />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .btn {
+        cursor: pointer;
+        transition: background-color 0.2s, color 0.2s;
+      }
+    </style>
+  </head>
+  <body>
+
+    <nav class="bg-white-200 mb-3" style="background-color: #F8F8F8;"> 
+      <div class="flex  items-center justify-between mx-[10px] border-b">
+          <div class="flex items-center  nav-container text-[14px] text-[#777777] font-normal ">
+              <div class="hidden md:flex space-x-2" id="nav">
+                <a href="admin_panel.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Users</a>
+                <a href="order.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Orders</a>
+                <a href="subscription.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Subscription</a>
+                <a href="task.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit"><span class="inline-block"><p>Tasks <span style="border-radius: 15px; background-color: #F0AD4E; font-weight: 700; line-height: 1; color: white; padding: 2px 7px; font-size: 12px;">0</span></p></span></a>
+                <a href="service.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Services</a>
+                <a href="tickets.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit"><span class="inline-block"><p>Tickets <span class="px-2 py-1" style="border-radius: 10px; padding: 2px 7px; color: white; background-color: #F0AD4E; font-weight: 700; font-size: 12px;">0</span></p></span></a>
+                <a href="report.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Reports</a>
+                <a href="affiliatepage.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Affiliates</a>
+                <a href="appearance.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Appearance</a>
+                <a href="Setting.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Settings</a>
+              </div>
+          </div>
+          <div class="flex items-center gap-8 mr-[10px]">
+              <a href="#" class="text-white-700 hover:text-white-900 bell-wrapper">
+                  <i class="fas fa-bell"></i>
+                  <span class="notification-dot"></span>
+              </a>
+              <a href="#" class="text-white-700 hover:text-white-900"><i class="fas fa-moon" style="color: #6d6c6c;"></i></a>
+              <div class="flex items-center">
+                <a href="#" class="icon-circle text-white-700 hover:text-white-900" style="color: #F8F8F8;">
+                    <i class="bi bi-person relative top-0  text-gray-500 right-2 text-[#F8F8F8] bg-[#F8F8F8]" style=" bottom: 12px; "></i>            
+                </a>   
+                <div class="dropdown">
+                    <i class="fas fa-sort-down cursor-pointer text-black text-[12px]" onclick="toggleDropdown()"></i>
+              </div>
+              </div>
+            </div>
+  </nav>
+
+    <div class=" w-[80%] mx-auto flex mt-4 pl-5 pr-5 gap-7">
+      <div class="w-[18%] flex ">
+        <div class="w-full text-[#337ab7] font-normal text-[14px]">
+          <div
+            class="btn hover:bg-[#E6E6E6] rounded-[5px] text-[15px] py-[10px]    px-[14px] bg-[#ffffff] hover:text-black bg-[#E6E6E6]"
+          >
+            Pages
+          </div>
+
+          <div
+            class="btn hover:bg-[#E6E6E6] rounded-[5px] text-[15px] py-[10px]   px-[12px] bg-[#ffffff] hover:text-black"
+          >
+            Blog
+          </div>
+
+          <div
+            class="btn hover:bg-[#E6E6E6] rounded-[5px] text-[15px] py-[10px]   px-[12px] bg-[#ffffff] hover:text-black"
+          >
+            Menu
+          </div>
+          <div
+            class="btn hover:bg-[#E6E6E6] rounded-[5px] text-[15px] py-[10px]   px-[12px] bg-[#ffffff] hover:text-black"
+          >
+            Themes / Styles
+          </div>
+          <div
+            class="btn hover:bg-[#E6E6E6] rounded-[5px] text-[15px] py-[10px]   px-[12px] bg-[#ffffff] hover:text-black"
+          >
+            Languages
+          </div>
+          
+        </div>
+      </div>
+      <div id="content-area" class="w-[80%]">
+        <!-- Dynamic content will be displayed here -->
+        
+    </div>
+  </body>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const buttons = document.querySelectorAll(".btn");
+      const contentArea = document.getElementById("content-area");
+     
+
+      const content = {
+        Pages:
+        `
+          <div>
+             <div
+             id="addTicketBtn"
+            class="flex items-center justify-center w-[90px] gap-1 border rounded-[4px] px-[6px] py-[8px] md:py-[4px] px-[10px] text-black text-[14px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer"
+          >
+            Add Page
+          </div>
+
+          <table class="min-w-full mt-4 bg-white border border-gray-200 text-[#333333] text-[14px]">
+            <thead>
+              <tr>
+                <th class="py-2 px-4  w-[49%] text-start border-b">Name</th>
+                <th class="py-2 px-4 border-b w-[30%] text-start">status</th>
+                <th class="py-2 px-4 border-b"></th>
+              </tr>
+            </thead>
+            <tbody class="text-[14px] font-normal text-[#333333]">
+              <tr>
+                <td class="py-[6px] px-4 w-[45%] border-b">New Order</td>
+                <td class="py-[6px] px-4 border-b w-[30%]">Visible</td>
+                <td class="py-[6px] px-4 border-b flex justify-end">
+                     <div
+            class="flex items-center  justify-center w-[40px] gap-1 border rounded-[4px] px-[4px] py-[4px] md:py-[1px] text-black text-[12px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer "
+          >
+            Edit
+          </div>
+            </td>
+
+              </tr>
+              <tr>
+                <td class="py-[6px] px-4 border-b w-[40%]">Order</td>
+                <td class="py-[6px] px-4 border-b w-[30%]">Pending</td>
+                <td class="py-[6px] px-4 border-b flex justify-end">
+                     <div
+            class="flex items-center  justify-center w-[40px] gap-1 border rounded-[4px] px-[4px] py-[4px] md:py-[1px] text-black text-[12px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer "
+          >
+            Edit
+          </div>
+            </td>
+              </tr>
+               <tr>
+                <td class="py-[6px] px-4 w-[40%] border-b">Task order</td>
+                <td class="py-[6px] px-4 border-b w-[30%]">Visible</td>
+                <td class="py-[6px] px-4 border-b flex justify-end">
+                     <div
+            class="flex items-center  justify-center w-[40px] gap-1 border rounded-[4px] px-[4px] py-[4px] md:py-[1px] text-black text-[12px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer "
+          >
+            Edit
+          </div>
+            </td>
+
+              </tr>
+               <tr>
+                <td class="py-[6px] px-4 w-[40%] border-b">Mass order</td>
+                <td class="py-[6px] px-4 border-b w-[30%]">Visible</td>
+                  <td class="py-[6px] px-4 border-b flex justify-end">
+                     <div
+            class="flex items-center  justify-center w-[40px] gap-1 border rounded-[4px] px-[4px] py-[4px] md:py-[1px] text-black text-[12px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer "
+          >
+            Edit
+          </div>
+            </td>
+              </tr>
+               <tr>
+                <td class="py-[6px] px-4 w-[40%] border-b">Ticket orders</td>
+                <td class="py-[6px] px-4 border-b w-[30%]">Visible</td>
+                 <td class="py-[6px] px-4 border-b flex justify-end">
+                     <div
+            class="flex items-center  justify-center w-[40px] gap-1 border rounded-[4px] px-[4px] py-[4px] md:py-[1px] text-black text-[12px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer "
+          >
+            Edit
+          </div>
+            </td>
+
+              </tr>
+               <tr>
+                <td class="py-[6px] px-4 w-[40%] border-b">Ticket orders</td>
+                <td class="py-[6px] px-4 border-b w-[30%]">Visible</td>
+                 <td class="py-[6px] px-4 border-b flex justify-end">
+                     <div
+            class="flex items-center  justify-center w-[40px] gap-1 border rounded-[4px] px-[4px] py-[4px] md:py-[1px] text-black text-[12px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer "
+          >
+            Edit
+          </div>
+            </td>
+
+              </tr>
+               <tr>
+                <td class="py-[6px] px-4 w-[40%] border-b">Ticket orders</td>
+                <td class="py-[6px] px-4 border-b w-[30%]">Visible</td>
+                <td class="py-[6px] px-4 border-b flex justify-end">
+                     <div
+            class="flex items-center  justify-center w-[40px] gap-1 border rounded-[4px] px-[4px] py-[4px] md:py-[1px] text-black text-[12px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer "
+          >
+            Edit
+          </div>
+            </td>
+
+              </tr>
+                <tr>
+                <td class="py-[6px] px-4 w-[40%] border-b">Ticket orders</td>
+                <td class="py-[6px] px-4 border-b w-[30%]">Visible</td>
+                <td class="py-[6px] px-4 border-b flex justify-end">
+                     <div
+            class="flex items-center  justify-center w-[40px] gap-1 border rounded-[4px] px-[4px] py-[4px] md:py-[1px] text-black text-[12px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer "
+          >
+            Edit
+          </div>
+            </td>
+
+              </tr>
+               <tr>
+                <td class="py-[6px] px-4 w-[40%] border-b">Ticket orders</td>
+                <td class="py-[6px] px-4 border-b w-[30%]">Visible</td>
+                  <td class="py-[6px] px-4 border-b flex justify-end">
+                     <div
+            class="flex items-center  justify-center w-[40px] gap-1 border rounded-[4px] px-[4px] py-[4px] md:py-[1px] text-black text-[12px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer "
+          >
+            Edit
+          </div>
+            </td>
+              </tr>
+               <tr>
+                <td class="py-[6px] px-4 w-[40%] border-b">Ticket orders</td>
+                <td class="py-[6px] px-4 border-b w-[30%]">Visible</td>
+                  <td class="py-[6px] px-4 border-b flex justify-end">
+                     <div
+            class="flex items-center  justify-center w-[40px] gap-1 border rounded-[4px] px-[4px] py-[4px] md:py-[1px] text-black text-[12px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer "
+          >
+            Edit
+          </div>
+            </td>
+
+              </tr>
+
+            </tbody>
+          </table>
+          </div>
+
+           <!-- add ticket modal -->
+      <div
+        id="ticketModal"
+        class="fixed inset-0 flex items-center justify-center hidden bg-black bg-opacity-50"
+      >
+        <div class="bg-white w-full max-w-md p-5 rounded-lg shadow-lg">
+          <h2 class="text-xl  mb-4 pb-4 border-b border-b-gray-300">
+            Add Ticket
+          </h2>
+          <form id="addTicketForm">
+            <div class="mb-4">
+              <label
+                for="username"
+                class="block text-sm font-medium text-gray-700"
+                >Username</label
+              >
+              <input
+                type="text"
+                id="username"
+                name="username"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <label
+                for="subject"
+                class="block text-sm font-medium text-gray-700"
+                >Subject</label
+              >
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                required
+              />
+            </div>
+            <div class="mb-4 border-b border-b-gray-300 pb-4">
+              <label
+                for="message"
+                class="block text-sm font-medium text-gray-700"
+                >Message</label
+              >
+              <textarea
+                id="message"
+                name="message"
+                class="mt-1 block w-full min-h-[150px] border border-gray-300 rounded-md shadow-sm p-2"
+                required
+              ></textarea>
+            </div>
+            <div class="flex justify-start gap-2">
+              <button
+                type="submit"
+                class="bg-[#337AB7] text-white py-[6px] px-4 rounded text-[14px]"
+              >
+                Add Ticket
+              </button>
+              <button
+                type="button"
+                id="cancelBtn"
+                class="bg-gray-200 hover:bg-gray-300 text-[14px] text-gray-700 py-[6px] px-4 rounded"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      `
+        ,
+        Blog: 
+        ` <div>
+             <div
+             id="addTicketBtn"
+            class="flex items-center justify-center w-[110px] mt-2 gap-1 border rounded-[4px] px-[4px] py-[8px] md:py-[4px] px-[10px] text-black text-[14px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer"
+          >
+            Add New post
+          </div>
+
+          <table class="min-w-full mt-4 bg-white border border-gray-200 text-[14px] text-[#333333]">
+            <thead>
+              <tr>
+                <th class="py-2 px-4  w-[50%] text-start border-b">Name</th>
+                <th class="py-2 px-4 border-b w-[25%] text-start">Created</th>
+                <th class="py-2 px-4 border-b w-[25%] text-start">Visibility</th>
+                <th class="py-2 px-4 border-b"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="py-2 px-4 w-[40%] border-b">What is the best way?</td>
+                <td class="py-2 px-4 border-b w-[30%]">2021-10-02 18:16:54</td>
+                <td class="py-2 px-4 border-b w-[30%]">Published</td>
+                <td class="py-2 px-4 border-b flex justify-end">
+                     <div
+            class="flex items-center justify-center w-[50px] gap-1 border rounded-[6px] px-[6px] py-[8px] md:py-[2px] text-black text-[15px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer "
+          >
+            Edit
+          </div>
+            </td>
+
+              </tr>
+  
+            </tbody>
+          </table>
+          </div>
+
+           <!-- add ticket modal -->
+      <div
+        id="ticketModal"
+        class="fixed inset-0 flex items-center justify-center hidden bg-black bg-opacity-50"
+      >
+        <div class="bg-white w-full max-w-md p-5 rounded-lg shadow-lg">
+          <h2 class="text-xl font-medium mb-4 pb-4 border-b border-b-gray-300">
+            Add Ticket
+          </h2>
+          <form id="addTicketForm">
+            <div class="mb-4">
+              <label
+                for="username"
+                class="block text-sm font-medium text-gray-700"
+                >Username</label
+              >
+              <input
+                type="text"
+                id="username"
+                name="username"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <label
+                for="subject"
+                class="block text-sm font-medium text-gray-700"
+                >Subject</label
+              >
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                required
+              />
+            </div>
+            <div class="mb-4 border-b border-b-gray-300 pb-4">
+              <label
+                for="message"
+                class="block text-sm font-medium text-gray-700"
+                >Message</label
+              >
+              <textarea
+                id="message"
+                name="message"
+                class="mt-1 block w-full min-h-[150px] border border-gray-300 rounded-md shadow-sm p-2"
+                required
+              ></textarea>
+            </div>
+            <div class="flex justify-start gap-2">
+              <button
+                type="submit"
+                class="bg-[#337AB7] text-white py-2 px-4 rounded text-[14px]"
+              >
+                Add Ticket
+              </button>
+              <button
+                type="button"
+                id="cancelBtn"
+                class="bg-gray-200 hover:bg-gray-300 text-[14px] text-gray-700 py-2 px-4 rounded"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      `
+        ,
+
+        Menu: `
+         <div class="max-w-4xl  mt-2 text-[#333333] text-[14px] mx-auto bg-white p-3 rounded border border-gray-300">
+    <!-- Public Section -->
+    <div class="mb-8 flex gap-3 pt-3">
+      <div class="w-[25%]">
+      <h2 class="font-medium  text-[#333333] text-[14px]">Public</h2>
+      <p class="text-[12px] text-[#ADADAD] text-gray-500 mb-4">Shown for any visitors</p>
+      </div>
+      <div class=" w-[75%]  w-full">
+      <ul class="border border-gray-300 rounded-[4px]">
+        <li class="flex justify-between items-center border-b px-2 py-[6px]">
+          <span class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 20 20">
+						<title>Drag-Handle</title>
+             <path d="M7 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm6-8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"></path>
+						</svg>
+            Services      
+            </span>
+          <button class="border border-gray-300 hover:bg-gray-300 text-xs text-gray-700 px-2 py-1 rounded">Edit</button>
+        </li>
+        <li class="flex justify-between items-center border-b px-2 py-[6px]">
+          <span class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 20 20">
+				   <title>Drag-Handle</title>
+					<path d="M7 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm6-8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"></path>
+				</svg>
+            Login      
+            </span>
+          <button class="border border-gray-300 hover:bg-gray-300 text-xs text-gray-700 px-2 py-1 rounded">Edit</button>
+        </li>
+        <li class="flex justify-between items-center border-b px-2 py-[6px]">
+         <span class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 20 20">
+				<title>Drag-Handle</title>
+				<path d="M7 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm6-8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"></path>
+				</svg>
+            Sign-up      
+            </span>
+        <button class="border border-gray-300 hover:bg-gray-300 text-xs text-gray-700 px-2 py-1 rounded">Edit</button>
+        </li>
+        <li class="flex justify-between items-center border-b px-2 py-[6px]">
+          <span class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 20 20">
+						<title>Drag-Handle</title>
+					  <path d="M7 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm6-8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"></path>
+					</svg>
+            Updates   
+           <span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="" data-original-title=""></span>   
+            </span>
+          <button class="border border-gray-300 hover:bg-gray-300 text-xs text-gray-700 px-2 py-1 rounded">Edit</button>
+        </li>
+      </ul>
+
+      <div
+             id="addTicketBtn"
+            class="flex items-center mt-3 justify-center w-[120px] gap-1 border rounded-[6px] px-[6px] py-[8px] md:py-[6px] text-black text-[14px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer"
+          >
+            Add menu item
+          </div>
+       
+      </div>
+      
+      </div>
+     
+
+    <!-- Signed Section -->
+     <div class="mb-8 flex gap-3 ">
+      <div class="w-[25%]">
+      <h2 class="font-medium  text-[#333333] text-[14px]">Public</h2>
+      <p class="text-[12px] text-[#ADADAD] text-gray-500 mb-4">Shown for any visitors</p>
+      </div>
+      <div class=" w-[75%]  w-full">
+      <ul class="border border-gray-300 rounded-[4px]">
+        <li class="flex justify-between items-center border-b px-2 py-[6px]">
+          <span class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 20 20">
+						<title>Drag-Handle</title>
+             <path d="M7 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm6-8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"></path>
+						</svg>
+            Services      
+            </span>
+          <button class="border border-gray-300 hover:bg-gray-300 text-xs text-gray-700 px-2 py-1 rounded">Edit</button>
+        </li>
+        <li class="flex justify-between items-center border-b px-2 py-[6px]">
+          <span class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 20 20">
+				   <title>Drag-Handle</title>
+					<path d="M7 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm6-8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"></path>
+				</svg>
+            Login      
+            </span>
+          <button class="border border-gray-300 hover:bg-gray-300 text-xs text-gray-700 px-2 py-1 rounded">Edit</button>
+        </li>
+        <li class="flex justify-between items-center border-b px-2 py-[6px]">
+         <span class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 20 20">
+				<title>Drag-Handle</title>
+				<path d="M7 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm6-8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"></path>
+				</svg>
+            Sign-up      
+            </span>
+        <button class="border border-gray-300 hover:bg-gray-300 text-xs text-gray-700 px-2 py-1 rounded">Edit</button>
+        </li>
+        <li class="flex justify-between items-center border-b px-2 py-[6px]">
+          <span class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 20 20">
+						<title>Drag-Handle</title>
+					  <path d="M7 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm6-8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm0 6c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"></path>
+					</svg>
+            Updates      
+            </span>
+          <button class="border border-gray-300 hover:bg-gray-300 text-xs text-gray-700 px-2 py-1 rounded">Edit</button>
+        </li>
+      </ul>
+
+      <div
+             id="addTicketBtn"
+            class="flex items-center mt-3 justify-center w-[120px] gap-1 border rounded-[6px] px-[6px] py-[8px] md:py-[6px] text-black text-[14px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer"
+          >
+            Add menu item
+          </div>
+       
+      </div>
+      
+      </div>
+     
+        `,
+      
+       'Themes / Styles':`
+          <table class="min-w-full text-[14px]  bg-white border border-gray-200">
+            <thead>
+              <tr>
+                <th class="py-[6px] px-[6px] w-[34%] text-start border-b">Themes</th>
+                <th class="py-[6px] px-[6px] border-b w-[17%] text-start">Versions</th>
+                <th class="py-[6px] px-[6px] border-b w-[35%] text-start">Last Modified</th>
+                <th class="py-[6px] px-[6px] border-b w-[40px]"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="py-[6px] px-[6px] w-[34%] border-b">Dark Black</td>
+                <td class="py-[6px] px-[6px] border-b w-[17%]">v1</td>
+                <td class="py-[6px] px-[6px] border-b w-[35%]">2021-10-02 18:16:54</td>
+                 <td class="border-b border-gray-300 w-[20px] pr-2 text-end xl:text-end pr-0 xl:pr-4 w-[100px] relative">
+                 <div class="relative">
+                 <div class="flex items-center gap-1 border rounded-[6px] px-[9px] text-black text-[13.5px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer">
+                 <span>Action</span>
+                 <i class="fas fa-sort-down pb-1"></i>
+                 </div>
+                 <div class="absolute right-0 mt-2  w-40 bg-white rounded-md shadow-xl z-50 hidden group-hover:block">
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Cancel Order</a>
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Edit Order</a>
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Delete Order</a>
+                </div>
+                </div>
+                </td>
+
+              </tr>
+             
+              
+               <tr>
+                <td class="py-[6px] px-[6px] w-[34%] border-b">pearl white</td>
+                <td class="py-[6px] px-[6px] border-b w-[17%]">v1</td>
+                <td class="py-[6px] px-[6px] border-b w-[35%]">2021-10-02 18:16:54</td>
+                 <td class="border-b border-gray-300 text-end xl:text-end pr-2 relative">
+                 <div class="relative">
+                 <div class="flex items-center gap-1 border rounded-[6px] px-[9px] text-black text-[13.5px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer">
+                 <span>Action</span>
+                 <i class="fas fa-sort-down pb-1"></i>
+                 </div>
+                 <div class="absolute right-0 mt-2  w-40 bg-white rounded-md shadow-xl z-50 hidden group-hover:block">
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Cancel Order</a>
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Edit Order</a>
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Delete Order</a>
+                </div>
+                </div>
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+          </div>       
+      </div>
+      `
+        ,
+        Languages:  `
+          <div>
+             <div
+             id="addTicketBtn"
+            class="flex items-center justify-center w-[120px] gap-1 border rounded-[6px] px-[4px] py-[6px] md:py-[6px] text-black text-[14px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer mt-4"
+          >
+            Add Language
+          </div>
+
+          <table class="min-w-full mt-4 bg-white border border-gray-200 text-[14px]">
+            <thead>
+              <tr>
+                <th class="text-start px-4 border-b">#</th>
+                <th class="py-2 px-4 w-[34%] text-start border-b">Name</th>
+                <th class="py-2 px-4 border-b w-[15%] text-start">Code</th>
+                <th class="py-2 px-4 border-b w-[32%] text-start">Last Modify</th>
+                <th class="py-2 px-4 border-b" w-[40px]></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="py-2 px-4  border-b">1</td>
+                <td class="py-2 px-4 w-[34%] border-b">English</td>
+                <td class="py-2 px-4 border-b w-[15%]">en</td>
+                <td class="py-2 px-4 border-b w-[32%]">Never Moified</td>
+                <td class="border-b border-gray-300 w-[20px] pr-2 text-end xl:text-end pr-0 xl:pr-4 w-[50px] relative">
+                 <div class="relative">
+                 <div class="flex items-center gap-1 border rounded-[6px] px-[9px] text-black text-[13.5px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer">
+                 <span>Action</span>
+                 <i class="fas fa-sort-down pb-1"></i>
+                 </div>
+                 <div class="absolute right-0 mt-2  w-40 bg-white rounded-md shadow-xl z-50 hidden group-hover:block">
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Cancel Order</a>
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Edit Order</a>
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Delete Order</a>
+                </div>
+                </div>
+                </td>
+
+              </tr>
+              <tr>
+                <td class="py-2 px-4 border-b ">2</td>
+                <td class="py-2 px-4 border-b w-[34%]">French</td>
+               <td class="py-2 px-4 border-b w-[15%]">en</td>
+                <td class="py-2 px-4 border-b w-[32%]">Never Moified</td>
+               <td class="border-b border-gray-300 w-[20px] pr-2 text-end xl:text-end pr-0 xl:pr-4 w-[50px] relative">
+                 <div class="relative">
+                 <div class="flex items-center gap-1 border rounded-[6px] px-[9px] text-black text-[13.5px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer">
+                 <span>Action</span>
+                 <i class="fas fa-sort-down pb-1"></i>
+                 </div>
+                 <div class="absolute right-0 mt-2  w-40 bg-white rounded-md shadow-xl z-50 hidden group-hover:block">
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Cancel Order</a>
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Edit Order</a>
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Delete Order</a>
+                </div>
+                </div>
+                </td>
+              </tr>
+               <tr>
+                <td class="py-2 px-4 border-b ">3</td>
+                <td class="py-2 px-4 w-[34%] border-b">Spanish</td>
+                <td class="py-2 px-4 border-b w-[15%]">fr</td>
+                <td class="py-2 px-4 border-b w-[32%]">Never Moified</td>
+               <td class="border-b border-gray-300 w-[20px] pr-2 text-end xl:text-end pr-0 xl:pr-4 w-[50px] relative">
+                 <div class="relative">
+                 <div class="flex items-center gap-1 border rounded-[6px] px-[9px] text-black text-[13.5px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer">
+                 <span>Action</span>
+                 <i class="fas fa-sort-down pb-1"></i>
+                 </div>
+                 <div class="absolute right-0 mt-2  w-40 bg-white rounded-md shadow-xl z-50 hidden group-hover:block">
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Cancel Order</a>
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Edit Order</a>
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Delete Order</a>
+                </div>
+                </div>
+                </td>
+
+              </tr>
+              
+            </tbody>
+          </table>
+          </div>
+
+           <!-- add ticket modal -->
+      <div
+        id="ticketModal"
+        class="fixed inset-0 flex items-center justify-center hidden bg-black bg-opacity-50"
+      >
+        <div class="bg-white w-full max-w-md p-5 rounded-lg shadow-lg">
+          <h2 class="text-xl font-medium mb-4 pb-4 border-b border-b-gray-300">
+            Add Ticket
+          </h2>
+          <form id="addTicketForm">
+            <div class="mb-4">
+              <label
+                for="username"
+                class="block text-sm font-medium text-gray-700"
+                >Username</label
+              >
+              <input
+                type="text"
+                id="username"
+                name="username"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <label
+                for="subject"
+                class="block text-sm font-medium text-gray-700"
+                >Subject</label
+              >
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                required
+              />
+            </div>
+            <div class="mb-4 border-b border-b-gray-300 pb-4">
+              <label
+                for="message"
+                class="block text-sm font-medium text-gray-700"
+                >Message</label
+              >
+              <textarea
+                id="message"
+                name="message"
+                class="mt-1 block w-full min-h-[150px] border border-gray-300 rounded-md shadow-sm p-2"
+                required
+              ></textarea>
+            </div>
+            <div class="flex justify-start gap-2">
+              <button
+                type="submit"
+                class="bg-[#337AB7] text-white py-2 px-4 rounded text-[14px]"
+              >
+                Add Ticket
+              </button>
+              <button
+                type="button"
+                id="cancelBtn"
+                class="bg-gray-200 hover:bg-gray-300 text-[14px] text-gray-700 py-2 px-4 rounded"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      `
+        ,
+       
+      };
+
+      // To toggle the dropdown, add an event listener to the button
+      document.addEventListener("click", function (e) {
+          if (e.target.matches(".relative > div")) {
+            let dropdown = e.target.nextElementSibling;
+            dropdown.classList.toggle("hidden");
+          } else {
+            let dropdowns = document.querySelectorAll(".relative .z-40");
+            dropdowns.forEach(function (dropdown) {
+              dropdown.classList.add("hidden");
+            });
+          }
+        });
+
+      
+      buttons.forEach((button) => {
+        button.addEventListener("click", function () {
+          const text = this.innerText;
+          contentArea.innerHTML = content[text];
+        });
+      });
+
+      contentArea.innerHTML = content["Pages"];
+    });
+
+
+    
+   
+  </script>
+</html>

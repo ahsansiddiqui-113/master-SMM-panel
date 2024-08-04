@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Affiliate</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.2/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    rel="stylesheet"
+  />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .btn {
+        cursor: pointer;
+        transition: background-color 0.2s, color 0.2s;
+      }
+    </style>
+  
+  </head>
+  <body>
+
+    <nav class="bg-white-200 mb-3" style="background-color: #F8F8F8;"> 
+      <div class="flex  items-center justify-between mx-[8px] border-b">
+          <div class="flex items-center  nav-container text-[14px] text-[#777777] font-normal ">
+              <div class="hidden md:flex space-x-2" id="nav">
+                <a href="admin_panel.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Users</a>
+                <a href="order.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Orders</a>
+                <a href="subscription.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Subscription</a>
+                <a href="task.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit"><span class="inline-block"><p>Tasks <span style="border-radius: 15px; background-color: #F0AD4E; font-weight: 700; line-height: 1; color: white; padding: 2px 7px; font-size: 12px;">0</span></p></span></a>
+                <a href="service.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Services</a>
+                <a href="tickets.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit"><span class="inline-block"><p>Tickets <span class="px-2 py-1" style="border-radius: 10px; padding: 2px 7px; color: white; background-color: #F0AD4E; font-weight: 700; font-size: 12px;">0</span></p></span></a>
+                <a href="report.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Reports</a>
+                <a href="affiliatepage.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Affiliates</a>
+                <a href="appearance.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Appearance</a>
+                <a href="Setting.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Settings</a>
+              </div>
+          </div>
+          <div class="flex items-center gap-8 mr-[10px]">
+              <a href="#" class="text-white-700 hover:text-white-900 bell-wrapper">
+                  <i class="fas fa-bell"></i>
+                  <span class="notification-dot"></span>
+              </a>
+              <a href="#" class="text-white-700 hover:text-white-900"><i class="fas fa-moon" style="color: #6d6c6c;"></i></a>
+              <div class="flex items-center">
+                <a href="#" class="icon-circle text-white-700 hover:text-white-900" style="color: #F8F8F8;">
+                    <i class="bi bi-person relative top-0  text-gray-500 right-2 text-[#F8F8F8] bg-[#F8F8F8]" style=" bottom: 12px; "></i>            
+                </a>   
+                <div class="dropdown">
+                    <i class="fas fa-sort-down cursor-pointer text-black text-[12px]" onclick="toggleDropdown()"></i>
+              </div>
+              </div>
+            </div>
+  </nav>
+
+    <div class="w-full flex mt-3 pl-5 pr-5 gap-4 w-full ">
+      <div class="w-[16%] flex">
+        <div class="w-full text-[#337ab7]">
+          <div
+            class="btn hover:bg-[#E6E6E6] rounded-[5px] text-[15px] py-[9px] px-[12px] bg-[#ffffff] hover:text-black bg-[#E6E6E6]"
+          >
+            Affiliates
+          </div>
+
+          <div
+            class="btn hover:bg-[#E6E6E6] rounded-[5px] text-[15px] py-[9px]  px-[12px] bg-[#ffffff] hover:text-black"
+          >
+            Referrals
+          </div>
+
+          <div
+            class="btn hover:bg-[#E6E6E6] rounded-[5px] text-[15px] py-[9px]  px-[12px] bg-[#ffffff] hover:text-black"
+          >
+            Payouts
+          </div>
+          
+          
+        </div>
+      </div>
+      
+      <div class=" w-[84%] text-[14px] text-[#333333]">
+        <div class="flex items-center  justify-end">
+          <input placeholder="Search" class="btn border flex items-center justify-center border-[#CCC] w-[200px] font-normal"  style="border-radius: 4px; text-align: start; 
+          font-size: 14px ; padding:6px 14px" class="text-[#777777]">
+          <button style="height: 34px;" class="btn border-r border-t hover:bg-[#F8F8F8] border-b border-[#CCC] px-3 py-0 rounded-r-[5px]" style="background-color: #E6E6E6;"><i style="font-size: 14px; color: #555;" class="fas fa-search"></i></button>
+      </div>
+
+          <div id="content-area" class="">
+            <!-- Dynamic content will be displayed here -->
+        </div>
+      </div>
+            
+  </body>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const buttons = document.querySelectorAll(".btn");
+      const contentArea = document.getElementById("content-area");
+     
+
+      const content = {
+        Affiliates:
+        `
+        <div class="overflow-x-scroll">
+          <table class="min-w-full mt-4 bg-white border border-gray-200 overflow-x-scroll text-[14px]">
+            <thead>
+              <tr>
+                <th class="py-2 px-4 text-start border-b">ID</th>
+                <th class="py-2 px-4  text-start border-b  w-[200px]">Affiliate</th>
+                <th class="py-2 px-4 border-b  text-start whitespace-nowrap">Affiliate Status</th>
+                <th class="py-2 px-4 border-b whitespace-nowrap">Total visits</th>
+                <th class="py-2 px-4 border-b whitespace-nowrap">Unpaid referrals</th>
+                <th class="py-2 px-4 border-b whitespace-nowrap">Paid referrals</th>
+                <th class="py-2 px-4 border-b whitespace-nowrap">Conversion rate</th>
+                <th class="py-2 px-4 border-b whitespace-nowrap">Total earnings</th>
+                <th class="py-2 px-4 border-b whitespace-nowrap"> Unpaid earnings</th>
+                <th class="py-2 px-4 border-b"></th>       
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="py-2 px-4  border-b text-[14px]">3866</td>
+                 <td class="border-b border-gray-300 p-0 pt-2 pb-1 pl-4 min-w-[200px] text-left text-[14px]">
+                    <div class="flex gap-2 items-center">
+                      <div class="border border-gray-300 py-[1px] rounded-[4px] px-2 text-[10px] font-bold">288</div>
+                    bam23 <i class="far fa-copy text-[#337ab7]"></i>
+
+                    </div>
+                    </td>
+                <td class="py-2 px-4 border-b ">Enabled</td>
+                <td class="py-2 px-4 border-b ">4</td>
+                <td class="py-2 px-4 border-b ">0</td>
+                <td class="py-2 px-4 border-b ">0</td>
+                <td class="py-2 px-4 border-b ">0%</td>
+                <td class="py-2 px-4 border-b ">0</td>
+                 <td class="py-2 px-4 border-b ">0</td>
+                 <td
+                 class="border-b border-white-300 pr-2 text-start w-[100px] p-0 pt-2 pb-1 text-xs lg:text-[14px] "
+                  >
+                <div class="relative">
+                 <div class="flex items-center gap-1 border rounded-[6px] py-[4px] px-[9px] text-black text-[13.5px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer">
+                 <span>Action</span>
+                 <i class="fas fa-sort-down pb-1"></i>
+                 </div>
+                 <div class="absolute right-0 mt-2  w-40 bg-white rounded-md shadow-xl z-10 hidden group-hover:block">
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Cancel Order</a>
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Edit Order</a>
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Delete Order</a>
+                </div>
+                </div>
+              
+                 </td>
+              </tr>
+              
+
+              <tr>
+                <td class="py-2 px-4 border-b text-[14px] ">3866</td>
+                 <td class="border-b border-gray-300 p-0 pt-2 pb-1 pl-4 min-w-[200px] text-left text-[14px]">
+                    <div class="flex gap-2 items-center">
+                      <div class="border border-gray-300 py-[1px] rounded-[4px] px-2 text-[10px] font-bold">288</div>
+                    bam23 <i class="far fa-copy text-[#337ab7]"></i>
+
+                    </div>
+                    </td>
+                <td class="py-2 px-4 border-b ">Enabled</td>
+                <td class="py-2 px-4 border-b ">0</td>
+                <td class="py-2 px-4 border-b ">0</td>
+                <td class="py-2 px-4 border-b ">0</td>
+                <td class="py-2 px-4 border-b ">0%</td>
+                <td class="py-2 px-4 border-b ">0</td>
+                 <td class="py-2 px-4 border-b ">9</td>          
+               <td
+                 class="border-b border-white-300 pr-2 text-start w-[100px] p-0 pt-2 pb-1 text-xs lg:text-[14px] "
+                  >
+                <div class="relative">
+                 <div class="flex items-center gap-1 border rounded-[6px] py-[4px] px-[9px] text-black text-[13.5px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer">
+                 <span>Action</span>
+                 <i class="fas fa-sort-down pb-1"></i>
+                 </div>
+                 <div class="absolute right-0 mt-2  w-40 bg-white rounded-md shadow-xl z-10 hidden group-hover:block">
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Cancel Order</a>
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Edit Order</a>
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Delete Order</a>
+                </div>
+                </div>
+              
+                 </td>
+              </tr>
+              
+              
+
+              
+            </tbody>
+          </table>
+          </div>
+          
+      `
+      
+        ,
+        Referrals: `      
+        <div class="overflow-x-scroll text-[14px] font-normal">
+          <table class="min-w-full mt-4 bg-white border border-gray-200 overflow-x-scroll text-[14px]">
+            <thead>
+              <tr>
+                <th class="py-2 px-2  text-start border-b whitespace-nowrap w-[20px]">ID</th>
+                <th class="py-2 px-4 text-start border-b whitespace-nowrap w-[18%]">Ref,User Id</th>
+                <th class="py-2  border-b  text-start whitespace-nowrap">Affiliate</th>
+                <th class="py-2  border-b whitespace-nowrap text-start">Referral</th>
+                <th class="py-2  border-b whitespace-nowrap text-start">Payments</th>
+                <th class="py-2  border-b whitespace-nowrap text-start  w-[100px]">Total commission</th>
+                <th class="py-2 px-4 border-b whitespace-nowrap text-start w-[180px]">Date</th>    
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="py-2 px-2  border-b text-[14px] w-[20px]">1</td>
+                <td class="py-2 px-4 border-b w-[18%]">18572</td>
+                <td class="py-2  border-b ">Affiliate</td>
+                <td class="py-2  border-b ">Referral</td>
+                <td class="py-2  border-b ">0</td>
+                <td class="py-2  border-b ">$0</td>
+                <td class="py-2  border-b ">2024-04-22 12:31:20</td>
+                
+              </tr> 
+            </tbody>
+          </table>
+          </div>
+          
+      
+        `,
+        Payouts: `
+        <div class="overflow-x-scroll">
+          <table class="min-w-full mt-4 bg-white border border-gray-200 overflow-x-scroll text-[14px]">
+            <thead>
+              <tr>
+                <th class="py-2 px-4  text-start border-b">User ID</th>
+                <th class="py-2 px-4  text-start border-b  w-[200px]">Affiliate</th>
+                <th class="py-2 px-4 border-b  text-start whitespace-nowrap">Payout Amount</th>
+                <th class="py-2 px-4 border-b whitespace-nowrap text-start">Created</th>
+                <th class="py-2 px-4 border-b whitespace-nowrap">Updated</th>
+                <th class="py-2 px-4 border-b whitespace-nowrap text-start">Status</th>
+                <th class="py-2 px-4 border-b whitespace-nowrap text-start">Mode</th>
+                <th class="py-2 px-4 border-b">Actions</th>       
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="py-2 px-4  border-b text-[14px]">2677</td>
+                <td class="py-2 px-4 border-b ">Affiliate111</td>
+                <td class="py-2 px-4 border-b ">1.013242534</td>
+               <td class="py-2 px-4 border-b ">2024-04-22 12:31:20</td>
+                <td class="py-2 px-4 border-b "></td>
+                <td class="py-2 px-4 border-b ">Approved</td>
+                <td class="py-2 px-4 border-b ">Auto</td>
+                 <td class="border-b border-white-300 text-start w-[100px] p-0 pt-2 pb-1 text-xs lg:text-[14px]"
+                 >
+                <div
+                class="flex justify-start items-center pl-4 gap-1 h-7 text-black text-[13.5px] border-[#c9c9c9] text-black border border-[#cccccc] w-[80px] rounded-[4px] cursor-pointer"
+                id="statusHeader"
+                 >
+                <span>Actions</span>
+                <i class="fas fa-sort-down pb-1"></i>
+              </div>
+              <div class="absolute hidden bg-white border border-gray-300 mt-1 w-40 rounded-md shadow-lg" id="statusDropdown">
+                <!-- Dropdown content -->
+                <ul class="py-1">
+                  <li class="cursor-pointer px-4 py-2 hover:bg-gray-100">All</li>
+                  <li class="cursor-pointer px-4 py-2 hover:bg-gray-100">Pending</li>
+                  <li class="cursor-pointer px-4 py-2 hover:bg-gray-100">Answered</li>
+                </ul>
+              </div>
+            </td>
+              </tr>
+            </tbody>
+          </table>
+          </div>     
+      `,
+      
+      };
+
+             // To toggle the dropdown, add an event listener to the button
+document.addEventListener('click', function(e) {
+  if (e.target.matches('.relative > div')) {
+    let dropdown = e.target.nextElementSibling;
+    dropdown.classList.toggle('hidden');
+  } else {
+    let dropdowns = document.querySelectorAll('.relative .z-10');
+    dropdowns.forEach(function(dropdown) {
+      dropdown.classList.add('hidden');
+    });
+  }
+});
+
+document.addEventListener('click', function (e) {
+    // Toggle modal visibility
+    if (e.target.closest('#addTicketBtn')) {
+      document.getElementById('ticketModal').classList.remove('hidden');
+    } else if (e.target.closest('#cancelBtn')) {
+      document.getElementById('ticketModal').classList.add('hidden');
+    } else if (!e.target.closest('#ticketModal') && !e.target.closest('#addTicketBtn')) {
+      document.getElementById('ticketModal').classList.add('hidden');
+    }
+  });
+
+  document.addEventListener('submit', function (e) {
+    if (e.target.closest('#addTicketForm')) {
+      e.preventDefault();
+      // Add your form submission logic here
+      document.getElementById('ticketModal').classList.add('hidden');
+    }
+  });
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", function () {
+          const text = this.innerText;
+          contentArea.innerHTML = content[text];
+        });
+      });
+
+      // Set default content
+      contentArea.innerHTML = content["Affiliates"];
+    });
+
+
+    
+   
+  </script>
+</html>

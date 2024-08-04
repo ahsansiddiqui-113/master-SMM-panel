@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(180deg, #00c6ff 0%, #00fbff 100%);
+            color: #ffffff;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            color: #333333;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333333;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #666666;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333333;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            color: #333333;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #00D9FF;
+            border: none;
+            border-radius: 5px;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #00b2e3;
+        }
+        a {
+            color: #00D9FF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>OTP Verification</h2>
+        <p>Please enter the OTP sent to your registered mobile number.</p>
+        <form id="otpForm">
+            <div class="form-group">
+                <label for="otp">OTP</label>
+                <input id="otp" name="otp" type="text" required>
+            </div>
+            <button type="submit">Verify OTP</button>
+            <p class="mt-3">
+                Didn't receive an OTP? <a href="#">Resend OTP</a>
+            </p>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('otpForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Redirect directly without any verification
+            window.location.href = 'admin_panel.html'; // Ensure path is correct
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<form action="{% url 'stripe_payment' %}" method="post">
+  {% csrf_token %}
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="{{ publishable_key }}"
+          data-amount="10.00"
+          data-name="SMM Panel"
+          data-description="Payment for SMM services"
+          data-image="https://example.com/your-logo.png"
+          data-locale="auto">
+  </script>
+</form>

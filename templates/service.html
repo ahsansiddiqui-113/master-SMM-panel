@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Services</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.2/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {},
+        },
+      };
+    </script>
+    <style>
+     
+      .emoji {
+            display: inline-block;
+            font-size: 18px; /* Adjust size as needed */
+            color: #000000; /* Replace with your desired color */
+            transform: rotate(270deg); /* Ensure it's straight */
+        }
+    </style>
+  </head>
+  <body class="bg-white-100">
+
+    <nav class="bg-white-200 mb-4 p-4" style="background-color: #F8F8F8;"> 
+      <div class="container mx-auto flex justify-between items-center">
+          <div class="flex items-center gap-4 nav-container">
+              <div class="hidden md:flex space-x-6" id="nav">
+                <a style="color: #827f7f;" href="admin_panel.html">Users</a>
+                <a style="color: #827f7f;" href="order.html">Orders</a>
+                <a style="color: #827f7f;" href="subscription.html">Subscription</a>
+                <a style="color: #827f7f;" href="task.html"><span class="inline-block"><p>Tasks <span style="border-radius: 15px; background-color: #F0AD4E; font-weight: 700; line-height: 1; color: white; padding: 2px 7px; font-size: 12px;">0</span></p></span></a>
+                <a style="color: #827f7f;" href="service.html">Services</a>
+                <a style="color: #827f7f;" href="tickets.html"><span class="inline-block"><p>Tickets <span class="px-2 py-1" style="border-radius: 10px; padding: 2px 7px; color: white; background-color: #F0AD4E; font-size: 12px;">0</span></p></span></a>
+                <a style="color: #827f7f;" href="report.html">Reports</a>
+                <a style="color: #827f7f;" href="affiliatepage.html">Affiliates</a>
+                <a style="color: #827f7f;" href="appearance.html">Appearance</a>
+                <a style="color: #827f7f;" href="Setting.html">Settings</a>
+              </div>
+          </div>
+          <div class="flex items-center gap-7 mr-5"> <!-- Adjusted 'gap-0' to 'gap-2' for spacing between bell, moon, and person -->
+              <a href="#" class="text-white-700 hover:text-white-900 bell-wrapper">
+                  <i class="fas fa-bell"></i>
+                  <span class="notification-dot"></span>
+              </a>
+              <a href="#" class="text-white-700 hover:text-white-900"><i class="fas fa-moon" style="color: #6d6c6c;"></i></a>
+              <a href="#" class="icon-circle text-white-700 hover:text-white-900" style="color: #F8F8F8;">
+                  <i class="bi bi-person" style="position: relative; bottom: 12px; right: 2px; color: #F8F8F8;"></i>            
+              </a>
+              
+              <div class="dropdown" style="margin-left: -25px;"> <!-- Adjusted margin-left for sort down icon -->
+                  <i style="font-size: 10px;color: #6D6C6C;" class="fas fa-sort-down" onclick="toggleDropdown()"></i>
+              </div>
+            </div>
+  </nav>
+
+    <div class="mt-3 pl-5 pr-5">
+      <div class="mb-3 gap-4  lg:flex justify-between items-center">
+        <div class="md:flex space-x-0 gap-3 cursor-pointer">
+          <div id="add-service-button"
+            class="btn hover:bg-[#E6E6E6] rounded-[5px] text-[13.5px] py-[8px] md:py-[6px] px-[12px] bg-[#ffffff] text-black border border-[#c9c9c9]"
+          >
+            Add service
+          </div>
+          <div id="add-subscriptions-button"
+            class="btn hover:bg-[#E6E6E6] rounded-[5px] text-[13.5px] py-[8px] md:py-[6px] px-[12px] bg-[#ffffff] text-black border border-[#c9c9c9]"
+          >
+            Add subscriptions
+          </div>
+
+          <div id="add-category-button"
+            class="btn hover:bg-[#E6E6E6] rounded-[5px] text-[13.5px] py-[8px] md:py-[6px] px-[12px] bg-[#ffffff] text-black border border-[#c9c9c9]"
+          >
+            Add category
+          </div>
+
+          <div
+            class="flex items-center gap-1 border rounded-[6px] px-[12px] py-[8px] md:py-[6px] text-black text-[13.5px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6]"
+          >
+            <span>Delete</span>
+            <i class="fas fa-sort-down pb-1"></i>
+          </div>
+        </div>
+         <!-- Add Service Modal -->
+         <div id="add-service-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+          <div class="bg-white p-4 rounded-md shadow-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
+              <div class="flex justify-between items-center">
+                  <h2 class="text-lg font-bold">Add service</h2>
+                  <button class="text-gray-500" id="close-add-service-modal">&times;</button>
+              </div>
+              <div class="mt-4">
+                  <label for="service-name" class="block text-gray-700">Service Name</label>
+                  <input type="text" id="service-name" class="w-full mt-1 border rounded-md p-2">
+              </div>
+              <div class="mt-4">
+                  <label for="category" class="block text-gray-700">Category</label>
+                  <select id="category" class="w-full mt-1 border rounded-md p-2">
+                      <option value="TikTok Likes [ Working ]">TikTok Likes [ Working ]</option>
+                      <!-- Add other options as needed -->
+                  </select>
+              </div>
+              <div class="mt-4">
+                  <label for="service-details" class="block text-gray-700">Service Details</label>
+                  <textarea id="service-details" class="w-full mt-1 border rounded-md p-2" rows="4"></textarea>
+              </div>
+              <div class="mt-4 flex space-x-2">
+                  <div class="w-1/2">
+                      <label for="mode" class="block text-gray-700">Mode</label>
+                      <select id="mode" class="w-full mt-1 border rounded-md p-2">
+                          <option value="Auto">Auto</option>
+                          <!-- Add other options as needed -->
+                      </select>
+                  </div>
+                  <div class="w-1/2">
+                      <label for="provider" class="block text-gray-700">Provider</label>
+                      <select id="provider" class="w-full mt-1 border rounded-md p-2">
+                          <option value="Select Provider">Select Provider</option>
+                          <!-- Add other options as needed -->
+                      </select>
+                  </div>
+              </div>
+              <div class="mt-4">
+                  <label for="service-type" class="block text-gray-700">Service type</label>
+                  <select id="service-type" class="w-full mt-1 border rounded-md p-2">
+                      <option value="Default">Default</option>
+                      <!-- Add other options as needed -->
+                  </select>
+              </div>
+              <div class="mt-4 flex space-x-2">
+                  <div class="w-1/2">
+                      <label for="start-count-type" class="block text-gray-700">Start Count Type</label>
+                      <select id="start-count-type" class="w-full mt-1 border rounded-md p-2">
+                          <option value="Catch from supplier">Catch from supplier</option>
+                          <!-- Add other options as needed -->
+                      </select>
+                  </div>
+                  <div class="w-1/2">
+                      <label for="dripfeed" class="block text-gray-700">DripFeed</label>
+                      <select id="dripfeed" class="w-full mt-1 border rounded-md p-2">
+                          <option value="Non Active">Non Active</option>
+                          <!-- Add other options as needed -->
+                      </select>
+                  </div>
+              </div>
+              <div class="mt-4 flex space-x-2">
+                <div class="w-1/2">
+                    <label for="start-count-type" class="block text-gray-700">Start Count Type</label>
+                    <select id="start-count-type" class="w-full mt-1 border rounded-md p-2">
+                        <option value="Catch from supplier">Catch from supplier</option>
+                        <!-- Add other options as needed -->
+                    </select>
+                </div>
+                <div class="w-1/2">
+                    <label for="dripfeed" class="block text-gray-700">DripFeed</label>
+                    <select id="dripfeed" class="w-full mt-1 border rounded-md p-2">
+                        <option value="Non Active">Non Active</option>
+                        <!-- Add other options as needed -->
+                    </select>
+                </div>
+            </div>
+              <div class="mt-4">
+                  <button class="w-full bg-blue-500 text-white py-2 rounded-md">Submit</button>
+              </div>
+          </div>
+      </div>
+      
+
+  <!-- Add Subscriptions Modal -->
+  <div id="add-subscriptions-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-4 rounded-md shadow-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center">
+            <h2 class="text-lg font-bold">Add subscriptions</h2>
+            <button class="text-gray-500" id="close-add-subscriptions-modal">&times;</button>
+        </div>
+        <!-- Add the content for Add subscriptions modal similar to the Add service modal -->
+        <div class="mt-4">
+            <label for="dripfeed" class="block text-gray-700">DripFeed</label>
+            <select id="dripfeed" class="w-full mt-1 border rounded-md p-2">
+                <option value="Non Active">Non Active</option>
+                <!-- Add other options as needed -->
+            </select>
+        </div>
+        <div class="mt-4 flex space-x-2">
+            <div class="w-1/2">
+                <label for="start-count-type" class="block text-gray-700">Start Count Type</label>
+                <select id="start-count-type" class="w-full mt-1 border rounded-md p-2">
+                    <option value="Catch from supplier">Catch from supplier</option>
+                    <!-- Add other options as needed -->
+                </select>
+            </div>
+            <div class="w-1/2">
+                <label for="dripfeed" class="block text-gray-700">DripFeed</label>
+                <select id="dripfeed" class="w-full mt-1 border rounded-md p-2">
+                    <option value="Non Active">Non Active</option>
+                    <!-- Add other options as needed -->
+                </select>
+            </div>
+        </div>
+        <div class="mt-4">
+            <label for="start-count-type" class="block text-gray-700">Start Count Type</label>
+            <select id="start-count-type" class="w-full mt-1 border rounded-md p-2">
+                <option value="Catch from supplier">Catch from supplier</option>
+                <!-- Add other options as needed -->
+            </select>
+        </div>
+        <div class="mt-4">
+            <label for="service-name" class="block text-gray-700">Service Name</label>
+            <input type="text" id="service-name" class="w-full mt-1 border rounded-md p-2">
+        </div>
+        <div class="mt-4">
+            <button class="w-full bg-blue-500 text-white py-2 rounded-md">Submit</button>
+        </div>
+    </div>
+</div>
+
+
+  <!-- Add Category Modal -->
+  <div id="add-category-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white p-4 rounded-md shadow-lg w-full max-w-md">
+          <div class="flex justify-between items-center">
+              <h2 class="text-lg font-bold">Add category</h2>
+              <button class="text-gray-500" id="close-add-category-modal">&times;</button>
+          </div>
+          <!-- Add the content for Add category modal similar to the Add service modal -->
+      </div>
+  </div>
+
+  <script>
+      document.getElementById('add-service-button').addEventListener('click', function() {
+          document.getElementById('add-service-modal').classList.remove('hidden');
+      });
+
+      document.getElementById('close-add-service-modal').addEventListener('click', function() {
+          document.getElementById('add-service-modal').classList.add('hidden');
+      });
+
+      document.getElementById('add-subscriptions-button').addEventListener('click', function() {
+          document.getElementById('add-subscriptions-modal').classList.remove('hidden');
+      });
+
+      document.getElementById('close-add-subscriptions-modal').addEventListener('click', function() {
+          document.getElementById('add-subscriptions-modal').classList.add('hidden');
+      });
+
+      document.getElementById('add-category-button').addEventListener('click', function() {
+          document.getElementById('add-category-modal').classList.remove('hidden');
+      });
+
+      document.getElementById('close-add-category-modal').addEventListener('click', function() {
+          document.getElementById('add-category-modal').classList.add('hidden');
+      });
+  </script>
+
+        <div class=" md:flex  md:items-center md:gap-4">
+          <ul
+            class="flex gap-6 text-[#337ab7] text-[14px] font-normal cursor-pointer mt-3 lg:mt-0 "
+          >
+            <li>Syncronize Services</li>
+            <li>Import</li>
+            <li>Export</li>
+          </ul>
+
+         
+            <div class="flex gap-3 items-center md:ml-auto relative mt-3 md:mt-0">
+              <i
+                style="font-size: 15px; color: #999"
+                class="fas fa-search absolute left-2"
+              ></i>
+              <input
+                placeholder="Search"
+                style="
+                  border-radius: 4px;
+                  text-align: start;
+                  font-size: 14px;
+                  border: 1px solid #cccccc;
+                  padding: 6px 30px;
+                "
+              />
+            </div>
+
+       
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table
+          class="w-full bg-white border-collapse border border-gray-300"
+        >
+          <thead>
+            <tr class="bg-gray-50">
+              <th
+                class="border-b border-white-300 pl-2 min-w-14 text-left text-[14px] py-3"
+              >
+                <div
+                  class="border border-[#E6E6E6] w-5 flex justify-center items-center py-[6px] px-3 rounded-[4px]"
+                >
+                  <input type="checkbox" class="cursor-pointer" />
+                </div>
+              </th>
+              <th
+                class="border-b border-white-300 p-0 pt-2 min-w-12 pb-1 text-xs lg:text-[14px] text-left"
+               
+              >
+                ID
+              </th>
+              <th
+                class="border-b border-white-300 p-0 pt-2 pb-1  text-xs lg:text-[14px] min-w-[25%] text-left"
+                
+              >
+                Service
+              </th>
+              <th
+                class="border-b border-white-300 p-0 pt-2 pb-1 text-xs lg:text-[14px] min-w-[15%] text-left"
+                
+              >
+                Type
+              </th>
+              <th
+                class="border-b border-white-300 p-0 pt-2 pb-1 text-xs lg:text-[14px] min-w-[10%] text-left"
+                
+              >
+                Provider
+              </th>
+              <th
+                class="border-b border-white-300 p-0 pt-2 pb-1 text-xs lg:text-[14px] min-w-[70px] text-left"
+                
+              >
+                Rate
+              </th>
+              <th
+                class="border-b border-white-300 p-0 pt-2 pb-1 text-xs lg:text-[14px] min-w-[50px]"
+                
+              >
+                Min
+              </th>
+              <th
+                class="border-b border-white-300 p-0 pt-2 pb-1 text-xs lg:text-[14px] min-w-[50px]"
+                
+              >
+                Max
+              </th>
+              <th
+                class="border-b border-white-300 p-0 pt-2 pb-1 text-xs lg:text-[14px] min-w-[50px]"
+               
+              >
+                Status
+              </th>
+              <th
+                class="border-b border-white-300 p-0 pt-2 pb-1 xl:text-end pr-0 xl:pr-4"
+              >
+              ↕️
+              </th>
+            </tr>
+          </thead>
+
+          
+          <tr>
+            <td colspan="10" class="border-b border-white-300 py-2 px-2">
+              <div class="flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                  <span class="emoji">𓃎</span>
+                  <span class="text-black text-xs lg:text-[14px] font-semibold"
+                    >Tiktok Updated Services</span
+                  >
+                  <button
+                    class="flex items-center gap-1 border rounded-[6px] px-[9px] text-black text-[13.5px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6]"
+                  >
+                    <span>Action</span>
+                    <i class="fas fa-sort-down pb-1"></i>
+                  </button>
+                </div>
+                <button
+                  class="flex items-center gap-1 text-black text-[13.5px] bg-[#ffffff] text-black"
+                >
+                  <span
+                    class="text-[#337ab7] text-xs border-b border-dashed"
+                    style="border-color: #337ab7"
+                    >Hide services</span
+                  >
+                  <i class="fas fa-sort-down pb-1"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          <tbody id="table-body">
+            <!-- dynamicaly data row -->
+          </tbody>
+        </table>
+      </div>
+
+      <script>
+        const data = [
+          {
+            id: "001",
+            service: "TikTok Likes [ 𝐖𝐨𝐫𝐤𝐢𝐧𝐠 ]",
+            type: "Normal Default %",
+            provider: "Provider",
+            providerValue: "500",
+            rate: "0.1200000",
+            rateValue: "0.05",
+            min: "100",
+            minValue: "100",
+            max: "5000000",
+            maxValue: "5000",
+            status: "Enabled",
+          },
+          {
+            id: "002",
+            service: "TikTok Likes ♻️Life Time Guarantee",
+            type: "Normal Default %",
+            provider: "Provider",
+            providerValue: "500",
+            rate: "0.1200000",
+            rateValue: "0.07",
+            min: "100",
+            minValue: "1",
+            max: "5000000",
+            maxValue: "5000",
+            status: "Enabled",
+          },
+          {
+            id: "003",
+            service: "TikTok Live Game Tap Tap Points👍 😮",
+            type: "Normal Default %",
+            provider: "Provider",
+            providerValue: "500",
+            rate: "0.1200000",
+            rateValue: "0.08",
+            min: "100",
+            minValue: "10",
+            max: "5000000",
+            maxValue: "5000",
+            status: "Expired",
+          },
+          {
+            id: "004",
+            service: "TikTok Live Game Tap Tap Points👍 😮",
+            type: "Normal Default %",
+            provider: "Provider",
+            providerValue: "500",
+            rate: "0.1200000",
+            rateValue: "0.05",
+            min: "5",
+            minValue: "10",
+            max: "5000000",
+            maxValue: "5000",
+            status: "Enabled",
+          },
+          {
+            id: "005",
+            service: "VPS Hosting",
+            type: "Normal Default %",
+            provider: "Provider",
+            providerValue: "500",
+            rate: "0.1200000",
+            rateValue: "0.05",
+            min: "100",
+            minValue: "100",
+            max: "5000000",
+            maxValue: "5000",
+            status: "Enabled",
+          },
+          {
+            id: "005",
+            service: "New YouTube Watch Time Hours⚠️( Use Own Risk )",
+            type: "Normal Default %",
+            provider: "Provider",
+            providerValue: "500",
+            rate: "0.1200000",
+            rateValue: "0.05",
+            min: "100",
+            minValue: "100",
+            max: "5000000",
+            maxValue: "5000",
+            status: "Enabled",
+          },
+          {
+            id: "005",
+            service: "TikTok Likes ♻️Life Time Guarantee",
+            type: "Normal Default %",
+            provider: "Provider",
+            providerValue: "500",
+            rate: "0.1200000",
+            rateValue: "0.05",
+            min: "100",
+            minValue: "100",
+            max: "5000000",
+            maxValue: "5000",
+            status: "Enabled",
+          },
+          {
+            id: "005",
+            service: "VPS Hosting",
+            type: "Normal Default %",
+            provider: "Provider",
+            providerValue: "500",
+            rate: "0.1200000",
+            rateValue: "0.03",
+            min: "100",
+            minValue: "100",
+            max: "5000000",
+            maxValue: "5000",
+            status: "Enabled",
+          },
+          {
+            id: "005",
+            service: "TikTok Live Game Tap Tap Points👍 😮",
+            type: "Normal Default %",
+            provider: "Provider",
+            providerValue: "500",
+            rate: "0.1200000",
+            rateValue: "0.05",
+            min: "100",
+            minValue: "100",
+            max: "5000000",
+            maxValue: "5000",
+            status: "Enabled",
+          },
+          {
+            id: "005",
+            service: "TikTok Likes ♻️Life Time Guarantee",
+            type: "Normal Default %",
+            provider: "Provider",
+            providerValue: "500",
+            rate: "0.1200000",
+            min: "100",
+            minValue: "100",
+            max: "5000000",
+            maxValue: "5000",
+            status: "Enabled",
+          },
+          {
+            id: "005",
+            service: "New YouTube Watch Time Hours⚠️( Use Own Risk )",
+            type: "Normal Default %",
+            provider: "Provider",
+            providerValue: "500",
+            rate: "0.1200000",
+            rateValue: "0.05",
+            min: "100",
+            minValue: "100",
+            max: "5000000",
+            maxValue: "5000",
+            status: "Enabled",
+          },
+          {
+            id: "005",
+            service: "TikTok Live Game Tap Tap Points👍 😮",
+            type: "Normal Default %",
+            provider: "Provider",
+            providerValue: "500",
+            rate: "0.1200000",
+            rateValue: "0.05",
+            min: "100",
+            minValue: "100",
+            max: "5000000",
+            maxValue: "5000",
+            status: "Enabled",
+          },
+          // Add more objects as needed up to 20 or more
+        ];
+
+        function createRow(data) {
+          return `
+              <tr>
+                  <td class="border-b border-gray-300 pl-2 min-w-14 text-left py-3">
+                      <div class=" w-5 flex justify-center items-center py-[6px] px-3 rounded-[4px]">
+                          <input type="checkbox" class="cursor-pointer">
+                      </div>
+                  </td>
+                  <td class="border-b border-gray-300 p-0 pt-2 pb-1 min-w-12 text-left text-xs lg:text-[14px]">${data.id}</td>
+                  <td class="border-b border-gray-300 p-0 pt-2 pb-1 min-w-[25%] text-left text-xs lg:text-[14px]" >${data.service}</td>
+                  <td class="border-b border-gray-300 p-0 pt-2 pb-1 w-[15%] text-left text-xs lg:text-[14px]" >${data.type}</td>
+                  <td class="border-b border-gray-300 p-0 pt-2 pb-1 w-[10%] text-left text-xs lg:text-[14px]" >
+                ${data.provider}<br><span class="text-[12px] text-gray-400">${data.providerValue}</span>
+            </td>
+                  <td class="border-b border-gray-300 p-0 pt-2 pb-1 min-w-[70px] text-xs lg:text-[14px]"><div class="flex items-center gap-1"><i class="fa fa-circle text-blue-500 text-[6px]"></i>${data.rate}</div><span class="text-[12px] text-gray-400">${data.rateValue}</span></td>
+                  <td class="border-b border-gray-300 p-0 pt-2 pb-1 min-w-[70px] text-xs lg:text-[14px]  text-center" ><div class="flex items-center justify-center gap-1"><i class="fa fa-circle text-blue-500 text-[6px]"></i>${data.min}</div><span class="text-[12px] text-gray-400">${data.minValue}</span></td>
+                 <td class="border-b border-gray-300 p-0 pt-2 pb-1 min-w-[70px] text-xs lg:text-[14px]  text-center" ><div class="flex items-center justify-center gap-1"><i class="fa fa-circle text-blue-500 text-[6px]"></i>${data.max}</div><span class="text-[12px] text-gray-400">${data.maxValue}</span></td>
+                  <td class="border-b border-gray-300 p-0 pt-2 pb-1 min-w-[70px] text-xs lg:text-[14px] text-center" >
+                    <div class=" flex items-center justify-center gap-[5px]">
+                      <i class="fa fa-circle text-blue-500 text-[6px]"></i>
+                      ${data.status}
+                      </div>
+                    </td>
+                  <td class="border-b border-gray-300 text-end xl:text-end pr-0 xl:pr-4 w-4">
+                      <div
+            class="flex items-center  gap-1 border rounded-[6px] px-[9px] text-black text-[13.5px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6]"
+          >
+            <span>Action</span>
+            <i class="fas fa-sort-down pb-1"></i>
+          </div>
+                  </td>
+              </tr>
+          `;
+        }
+
+        // Insert rows into the table
+        const tbody = document.getElementById("table-body");
+        data.forEach((rowData) => {
+          tbody.innerHTML += createRow(rowData);
+        });
+      </script>
+    </div>
+  </body>
+</html>

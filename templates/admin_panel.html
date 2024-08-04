@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.2/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-white-100">
+    <nav class="bg-white-200 mb-4 p-4" style="background-color: #F8F8F8;"> 
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4 nav-container">
+                <div class="hidden md:flex space-x-6" id="nav">
+                  <a style="color: #827f7f;" href="admin_panel.html">Users</a>
+                  <a style="color: #827f7f;" href="order.html">Orders</a>
+                  <a style="color: #827f7f;" href="subscription.html">Subscription</a>
+                  <a style="color: #827f7f;" href="task.html"><span class="inline-block"><p>Tasks <span style="border-radius: 15px; background-color: #F0AD4E; font-weight: 700; line-height: 1; color: white; padding: 2px 7px; font-size: 12px;">0</span></p></span></a>
+                  <a style="color: #827f7f;" href="service.html ">Services</a>
+                  <a style="color: #827f7f;" href="tickets.html"><span class="inline-block"><p>Tickets <span class="px-2 py-1" style="border-radius: 10px; padding: 2px 7px; color: white; background-color: #F0AD4E; font-size: 12px;">0</span></p></span></a>
+                  <a style="color: #827f7f;" href="report.html">Reports</a>
+                  <a style="color: #827f7f;" href="affiliatepage.html">Affiliates</a>
+                  <a style="color: #827f7f;" href="appearance.html">Appearance</a>
+                  <a style="color: #827f7f;" href="Setting.html">Settings</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-7 mr-5"> <!-- Adjusted 'gap-0' to 'gap-2' for spacing between bell, moon, and person -->
+                <a href="#" class="text-white-700 hover:text-white-900 bell-wrapper">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-dot"></span>
+                </a>
+                <a href="#" class="text-white-700 hover:text-white-900"><i class="fas fa-moon" style="color: #6d6c6c;"></i></a>
+                <a href="#" class="icon-circle text-white-700 hover:text-white-900" style="color: #F8F8F8;">
+                    <i class="bi bi-person" style="position: relative; bottom: 12px; right: 2px; color: #F8F8F8;"></i>            
+                </a>
+                
+                <div class="dropdown" style="margin-left: -25px;"> <!-- Adjusted margin-left for sort down icon -->
+                    <i style="font-size: 10px;color: #6D6C6C;" class="fas fa-sort-down" onclick="toggleDropdown()"></i>
+                </div>
+              </div>
+    </nav>
+
+<div class="container-fluid mx-auto mt-3 pl-5 pr-5" >
+    <div class="mb-3 flex justify-between items-center">
+        <div class="flex space-x-0">
+          <button id="addUserBtn"  style="border-radius: 5px;font-size: 13.5px;padding: 5px 12px;background-color: #FFFFFF;color:black;border: 1px solid #C9C9C9;">Add User</button>
+          <button id="exportUsersBtn"  style="border-radius: 5px;font-size: 13.5px;padding: 5px 12px;background-color: #FFFFFF;color:black;border: 1px solid #C9C9C9;">Export Users</button>
+
+          
+<!-- Customize Columns Modal -->
+<div id="customizeColumnsModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-lg w-1/3">
+    <div class="flex justify-between items-center p-5 border-b">
+      <h3 class="text-xl font-medium">Export Users List</h3>
+      <button id="closeCustomizeColumnsModalBtn" class="text-gray-600 hover:text-gray-900">&times;</button>
+    </div>
+    <div class="p-6">
+      <form id="customizeColumnsForm">
+        <div class="mb-3">
+          <label for="userPassword" class="block text-gray-700" style="color:#333333;font-size:14px"><b>Format</b></label>
+          <select id="registrationStatus" class="mt-1 p-2 w-full border rounded" style="font-size:13px" >
+            <option>Excel</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="flex justify-end p-6 border-t">
+      <button id="cancelCustomizeColumnsBtn" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 mr-2">Cancel</button>
+      <button id="saveCustomizeColumnsBtn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Export All</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add User Modal -->
+<div id="addUserModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-lg" style="width: 580px; height: 700px; margin-top: 10vh;">
+    <div class="flex justify-between items-center p-5 border-b">
+      <h5 style="font-size: 18px; color: #565555;">Add User</h5>
+      <button id="closeAddUserModalBtn" class="text-gray-600 hover:text-gray-900" style="color: #7f7f7f;">&times;</button>
+    </div>
+    <div class="p-6">
+      <form id="addUserForm">
+        <!-- Fields will be dynamically added here -->
+      </form>
+    </div>
+    <div class="flex justify-start p-6 border-t space-x-3">
+      <button id="addUserSubmitBtn" class="px-4 py-2 text-white rounded" style="background-color: #286090; font-size: 13px;">Add User</button>
+      <button id="cancelAddUserBtn" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400" style="font-size: 13px;">Cancel</button>
+    </div>
+  </div>
+</div>      
+            
+    <button id="exportEmailBtn"  style="border-radius: 5px;font-size: 13.5px;padding: 5px 12px;background-color: #FFFFFF;color:black;border: 1px solid #C9C9C9;">Export Emails</button>
+    <button id="exportWhatsAppBtn" style="border-radius: 5px;font-size: 13.5px;padding: 5px 12px;background-color: #FFFFFF;color:black;border: 1px solid #C9C9C9;">Export Whatsapp</button>
+            <button  style="border-radius: 5px;font-size: 13.5px;padding: 5px 12px;background-color: #FFFFFF;color:black;border: 1px solid #C9C9C9;">Details<i class="fas fa-sort-down ml-1"></i></button>
+   
+        </div>
+        <div class="flex items-center ml-auto">
+            <input placeholder="Search users "  style="border-radius: 4px; text-align: start;font-size: 14px ;border: 1px solid #CCCCCC;padding:6px 12px">
+            <button style="height: 33px; border-radius: 5px;" class="btn border border-white-400 px-3 py-0" style="background-color: #E6E6E6;"><i style="font-size: 15px;color: #111111;" class="fas fa-search"></i></button>
+        </div>
+    </div>
+    <table class="table-auto w-full bg-white border-collapse border">
+        <thead>
+            <tr >
+                <th class="border-b border-white-300 p-1 text-left" style="font-size: 14px;"><input type="checkbox"></th>
+                <th class="border-b border-white-300 p-0 pt-2 pb-1 text-left" style="font-size: 14px;">ID</th>
+                <th class="border-b border-white-300 p-0 pt-2 pb-1 text-left" style="font-size: 14px;">Username</th>
+                <th class="border-b border-white-300 p-0 pt-2 pb-1 text-left" style="font-size: 14px;">Email</th>
+                <th class="border-b border-white-300 p-0 pt-2 pb-1 text-left" style="font-size: 14px;"></th>
+                <th class="border-b border-white-300 p-0 pt-2 pb-1 text-left" style="font-size: 14px;">
+                    <div class="flex items-center" style="font-size: 14px;">
+                        Balance
+                        <span class="sort-icons ">
+                            <i class="fas fa-sort-up " style="margin-top: 0px;"></i>
+                            <i class="fas fa-sort-down" style="margin-top: -10px;"></i>
+                        </span>
+                    </div>
+                </th>
+                <th class="border-b border-white-300 p-0 pt-2 pb-1 text-left" style="font-size: 14px;">
+                    <div class="flex items-center" style="font-size: 14px;">
+                        Spent
+                        <span class="sort-icons">
+                            <i class="fas fa-sort-up"></i>
+                            <i class="fas fa-sort-down" style="margin-top: -10px;"></i>
+                        </span>
+                    </div>
+                </th>
+                <th class="border-b border-white-300 p-0 pt-2 pb-1 text-left" style="font-size: 14px;">Status<i class="fas fa-sort-down ml-1"></i></th>
+                <th class="border-b border-white-300 p-0 pt-2 pb-1 text-left" style="font-size: 14px;">Created</th>
+                <th class="border-b border-white-300 p-0 pt-2 pb-1 text-left " style="font-size: 14px;">
+                    <div class="flex items-center" style="font-size: 14px; margin-left: 2rem;">
+                        Last Auth
+                        <span class="sort-icons">
+                            <i class="fas fa-sort-up"></i>
+                            <i class="fas fa-sort-down" style="margin-top: -10px;"></i>
+                        </span>
+                    </div>
+                </th>
+                <th class="border-b border-white-300 p-0 pt-2 pb-1 text-left" style="font-size: 14px;">Discount</th>
+                <th class="border-b border-white-300 p-0 pt-2 pb-1 text-left" style="font-size: 14px;">Rates</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be added here dynamically -->
+        </tbody>
+    </table>
+    
+</div>
+<div id="exportEmailModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-lg w-1/3">
+    <div class="flex justify-between items-center p-5 border-b">
+      <h3 class="text-xl font-medium">Export Email List</h3>
+      <button id="closeExportEmailModalBtn" class="text-gray-600 hover:text-gray-900">&times;</button>
+    </div>
+    <div class="p-6">
+      <form id="exportEmailForm">
+        <div class="mb-3">
+          <label for="emailFormat" class="block text-gray-700" style="color:#333333;font-size:14px"><b>Format</b></label>
+          <select id="emailFormat" class="mt-1 p-2 w-full border rounded" style="font-size:13px">
+            <option>CSV</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="flex justify-end p-6 border-t">
+      <button id="cancelExportEmailBtn" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 mr-2">Cancel</button>
+      <button id="exportEmailSubmitBtn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Export All</button>
+    </div>
+  </div>
+</div>
+
+<!-- Export WhatsApp Modal -->
+<div id="exportWhatsAppModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-lg w-1/3">
+    <div class="flex justify-between items-center p-5 border-b">
+      <h3 class="text-xl font-medium">Export WhatsApp List</h3>
+      <button id="closeExportWhatsAppModalBtn" class="text-gray-600 hover:text-gray-900">&times;</button>
+    </div>
+    <div class="p-6">
+      <form id="exportWhatsAppForm">
+        <div class="mb-3">
+          <label for="whatsAppFormat" class="block text-gray-700" style="color:#333333;font-size:14px"><b>Format</b></label>
+          <select id="whatsAppFormat" class="mt-1 p-2 w-full border rounded" style="font-size:13px">
+            <option>CSV</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="flex justify-end p-6 border-t">
+      <button id="cancelExportWhatsAppBtn" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 mr-2">Cancel</button>
+      <button id="exportWhatsAppSubmitBtn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Export All</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('exportEmailBtn').addEventListener('click', function() {
+    document.getElementById('exportEmailModal').classList.remove('hidden');
+  });
+
+  document.getElementById('closeExportEmailModalBtn').addEventListener('click', function() {
+    document.getElementById('exportEmailModal').classList.add('hidden');
+  });
+
+  document.getElementById('cancelExportEmailBtn').addEventListener('click', function() {
+    document.getElementById('exportEmailModal').classList.add('hidden');
+  });
+
+  document.getElementById('exportWhatsAppBtn').addEventListener('click', function() {
+    document.getElementById('exportWhatsAppModal').classList.remove('hidden');
+  });
+
+  document.getElementById('closeExportWhatsAppModalBtn').addEventListener('click', function() {
+    document.getElementById('exportWhatsAppModal').classList.add('hidden');
+  });
+
+  document.getElementById('cancelExportWhatsAppBtn').addEventListener('click', function() {
+    document.getElementById('exportWhatsAppModal').classList.add('hidden');
+  });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const users = [
+        { id: 1111, username: "Maria1993", email: "1993mariamartinez@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-18", lastAuth: "2024-05-24 08:42:45", discount: "Set Discount", rates: "Custom rates", country: "ES", icons: [""], icons2: ["fab fa-whatsapp"],icons3: ["fab fa-skype"] },
+        { id: 1109, username: "Norvelusced", email: "sabig620@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-09", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "HT", icons: ["fab fa-fa-brands fa-google-plus-g"], icons2: ["fab fa-whatsapp"],icons3: ["fab fa-skype"] },
+        { id: 1108, username: "MarielouisalInnocent", email: "marielouisalinnocent3@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-07", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "US", icons: ["fab fa-fa-brands fa-google-plus-g"], icons2: ["fab fa-skype"],icons3: ["fab fa-user"]  },
+        { id: 1107, username: "Mediacom", email: "mediacomlbc12@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-06", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "LB", icons: [""], icons2: ["fab fa-whatsapp"],icons3: ["fab fa-skype"] },
+        { id: 1106, username: "test", email: "test123@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-06", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "US", icons: ["fab fa-fa-brands fa-google-plus-g"], icons2: ["fa fa-user"], icons3: ["fas fa-skype"] },
+        { id: 1105, username: "Munireal", email: "munireal@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-04", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "US", icons: ["fab fa-fa-brands fa-google-plus-g"], icons2: ["fab fa-whatsapp"],icons3: ["fab fa-skype"] },
+        { id: 1111, username: "Maria1993", email: "1993mariamartinez@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-18", lastAuth: "2024-05-24 08:42:45", discount: "Set Discount", rates: "Custom rates", country: "ES", icons: [""], icons2: [""],icons3: [""] },
+        { id: 1109, username: "Norvelusced", email: "sabig620@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-09", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "HT", icons: ["fab fa-fa-brands fa-google-plus-g"], icons2: [""],icons3: [""] },
+        { id: 1108, username: "MarielouisalInnocent", email: "marielouisalinnocent3@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-07", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "US", icons: ["fab fa-fa-brands fa-google-plus-g"], icons2: ["fab fa-skype"],icons3: ["fab fa-user"]  },
+        { id: 1107, username: "Mediacom", email: "mediacomlbc12@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-06", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "LB", icons: [""], icons2: ["fab fa-whatsapp"],icons3: ["fab fa-skype"] },
+        { id: 1106, username: "test", email: "test123@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-06", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "US", icons: ["fab fa-fa-brands fa-google-plus-g"], icons2: ["fa fa-user"],icons3: ["fas fa-skype"] },
+        { id: 1105, username: "Munireal", email: "munireal@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-04", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "US", icons: ["fab fa-fa-brands fa-google-plus-g"], icons2: ["fab fa-whatsapp"],icons3: ["fab fa-skype"] },
+        { id: 1105, username: "Munireal", email: "munireal@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-04", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "US", icons: ["  "], icons2: ["fab fa-whatsapp"],icons3: ["fab fa-skype"] },
+        { id: 1111, username: "Maria1993", email: "1993mariamartinez@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-18", lastAuth: "2024-05-24 08:42:45", discount: "Set Discount", rates: "Custom rates", country: "ES", icons: [""], icons2: ["fab fa-whatsapp"],icons3: ["fab fa-skype"] },
+        { id: 1109, username: "Norvelusced", email: "sabig620@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-09", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "HT", icons: [""], icons2: ["fab fa-whatsapp"],icons3: ["fab fa-skype"] },
+        { id: 1108, username: "MarielouisalInnocent", email: "marielouisalinnocent3@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-07", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "US", icons: [""], icons2: [""],icons3: [""] },
+        { id: 1107, username: "Mediacom", email: "mediacomlbc12@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-06", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "LB", icons: [""], icons2: ["fab fa-whatsapp"],icons3: ["fab fa-skype"] },
+        { id: 1106, username: "test", email: "test123@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-06", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "US", icons: ["fab fa-fa-brands fa-google-plus-g"], icons2: ["fa fa-user"],icons2: ["fas fa-skype"] },
+        { id: 1105, username: "Munireal", email: "munireal@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-04", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "US", icons: ["fab fa-fa-brands fa-google-plus-g"], icons2: [""],icons3: [""] },
+        { id: 1107, username: "Mediacom", email: "mediacomlbc12@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-06", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "LB", icons: [""], icons2: ["fab fa-whatsapp"],icons3: ["fab fa-skype"] },
+        { id: 1106, username: "test", email: "test123@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-06", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "US", icons: ["fab fa-fa-brands fa-google-plus-g"], icons2: ["fa fa-user"],icons3: ["fas fa-skype"] },
+        { id: 1105, username: "Munireal", email: "munireal@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-04", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "US", icons: ["fab fa-fa-brands fa-google-plus-g"], icons2: ["fab fa-whatsapp"],icons3: ["fab fa-skype"] },
+        { id: 1105, username: "Munireal", email: "munireal@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-04", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "US", icons: [""], icons2: ["fab fa-whatsapp"],icons3: ["fab fa-skype"] },
+        { id: 1111, username: "Maria1993", email: "1993mariamartinez@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-18", lastAuth: "2024-05-24 08:42:45", discount: "Set Discount", rates: "Custom rates", country: "ES", icons: [""], icons2: ["fab fa-whatsapp"],icons3: ["fab fa-skype"] },
+        { id: 1109, username: "Norvelusced", email: "sabig620@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-09", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "HT", icons: [""], icons2: ["fab fa-whatsapp"],icons3: ["fab fa-skype"] },
+        { id: 1108, username: "MarielouisalInnocent", email: "marielouisalinnocent3@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-07", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "US", icons: [""], icons2: [""],icons3: [""] },
+        { id: 1107, username: "Mediacom", email: "mediacomlbc12@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-06", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "LB", icons: [""], icons2: ["fab fa-whatsapp"],icons3: ["fab fa-skype"] },
+        { id: 1106, username: "test", email: "test123@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-06", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "US", icons: ["fab fa-fa-brands fa-google-plus-g"], icons2: ["fa fa-user"],icons2: ["fas fa-skype"] },
+        { id: 1105, username: "Munireal", email: "munireal@gmail.com", balance: "0.00", spent: "0.00", status: "Enabled", created: "2024-05-04", lastAuth: "1970-01-01 05:30:00", discount: "Set Discount", rates: "Custom rates", country: "US", icons: ["fab fa-fa-brands fa-google-plus-g"], icons2: [""],icons3: [""] },
+
+    ];
+
+    const tbody = document.querySelector('table tbody');
+
+    users.forEach(user => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+    <td class="border-b border-white-300 p-1 pt-2 pb-2" ><input type="checkbox"></td>
+    <td class="border-b border-white-300 p-1 pt-2 pb-2 text-left" style="font-size:13px">${user.id}</td>
+    <td class="border-b border-white-300 p-1 pt-2 pb-2 text-left" style="font-size:13px">${user.username}</td>
+    <td class="border-b border-white-300 p-1 pt-2 pb-2 text-left" style="font-size:13px">${user.email} <i style="font-size:12px" class="bi bi-check-circle-fill black-icon"></i><span  class="ml-1">${user.icons.map(icon => `<i class="${icon} " style="color:#267cbf;font-size:16px"></i>`).join(' ')}</span></td>
+    <td class="border-b border-white-300 p-1 pt-2 pb-2  text-left" style="font-size:13px;"><span style="margin-right:10px">${user.icons2.map(icon => `<i class="${icon} " style="color:#267cbf;font-size:16px;"></i>`).join(' ')} ${user.icons3.map(icon => `<i class="${icon} " style="color:#267cbf;font-size:16px"></i>`).join(' ')}</span></td>
+    <td class="border-b border-white-300 p-1"pt-2 pb-2  style="font-size:13px">${user.balance}</td>
+    <td class="border-b border-white-300 p-1"pt-2 pb-2  style="font-size:13px">${user.spent}</td>
+    <td class="border-b border-white-300 p-1 pt-2 pb-2 text-left" style="font-size:13px">${user.status}</td>
+    <td class="border-b border-white-300 p-1 pt-2 pb-2 text-left" style="font-size:13px">${user.created}</td>
+    <td class="border-b border-white-300 p-1 pt-2 pb-2 text-left" style="font-size:13px">${user.lastAuth}</td>
+    <td class="border-b border-white-300 p-1 pt-2 pb-2 text-left" style="font-size:12px"><button style="border:1px solid #C9C9C9;border-radius:3px;color:#C9C9C9;padding:1px 7px">${user.discount}</button></td>
+    <td class="border-b border-white-300 p-1 pt-2 pb-2 text-left" style="font-size:12px"><button style="border:1px solid #C9C9C9;border-radius:3px;color:#C9C9C9;padding:1px 7px">${user.rates}</button></td>
+    <td class="border-b border-white-300 p-1 pt-2 pb-2 text-left" style="font-size:13px">${user.country}</td>
+    
+    <td class="border-b border-white-300 pl-1 pt-2 pb-2 text-left" >
+ 
+            <button class="btn bg-white border border-white-400 px-2  py-0" type="button" style="margin-right:-10px" >
+                Actions
+              <i class="fas fa-sort-down"></i>
+            </button>
+            <ul class="dropdown-menu absolute hidden text-white-700 pt-1">
+                <li><a class="bg-white hover:bg-white-200 py-2 px-4 block whitespace-no-wrap" href="#">Action 1</a></li>
+                <li><a class="bg-white hover:bg-white-200 py-2 px-4 block whitespace-no-wrap" href="#">Action 2</a></li>
+                <li><a class="bg-white hover:bg-white-200 py-2 px-4 block whitespace-no-wrap" href="#">Action 3</a></li>
+            </ul>
+    </td>
+`;
+
+
+        tbody.appendChild(tr);
+    });
+});
+
+
+
+
+   const exportUsersBtn = document.getElementById('exportUsersBtn');
+  const addUserBtn = document.getElementById('addUserBtn');
+  const customizeColumnsModal = document.getElementById('customizeColumnsModal');
+  const closeCustomizeColumnsModalBtn = document.getElementById('closeCustomizeColumnsModalBtn');
+  const cancelCustomizeColumnsBtn = document.getElementById('cancelCustomizeColumnsBtn');
+  const saveCustomizeColumnsBtn = document.getElementById('saveCustomizeColumnsBtn');
+  
+  const addUserModal = document.getElementById('addUserModal');
+  const closeAddUserModalBtn = document.getElementById('closeAddUserModalBtn');
+  const cancelAddUserBtn = document.getElementById('cancelAddUserBtn');
+  const addUserSubmitBtn = document.getElementById('addUserSubmitBtn');
+  const addUserForm = document.getElementById('addUserForm');
+  const customizeColumnsForm = document.getElementById('customizeColumnsForm');
+
+  // Show Customize Columns Modal
+  exportUsersBtn.addEventListener('click', () => {
+    customizeColumnsModal.classList.remove('hidden');
+  });
+
+  // Close Customize Columns Modal
+  closeCustomizeColumnsModalBtn.addEventListener('click', () => {
+    customizeColumnsModal.classList.add('hidden');
+  });
+
+  cancelCustomizeColumnsBtn.addEventListener('click', () => {
+    customizeColumnsModal.classList.add('hidden');
+  });
+
+  saveCustomizeColumnsBtn.addEventListener('click', () => {
+    const selectedFields = [];
+    const fields = customizeColumnsForm.querySelectorAll('input[type="checkbox"]:checked');
+    fields.forEach(field => {
+      selectedFields.push(field.value);
+    });
+    localStorage.setItem('selectedFields', JSON.stringify(selectedFields));
+    customizeColumnsModal.classList.add('hidden');
+  });
+
+  // Function to populate Add User form
+  function populateAddUserForm() {
+    // Clear existing form fields
+    addUserForm.innerHTML = '';
+
+    // Get selected fields from localStorage
+    const selectedFields = JSON.parse(localStorage.getItem('selectedFields') || '[]');
+
+    // Dynamically add selected fields to the Add User form
+    selectedFields.forEach(field => {
+      let fieldHTML = '';
+      switch(field) {
+        case 'Username':
+          fieldHTML = `<div class="mb-3">
+            
+            <label for="userName" class="block text-gray-700" style="color:#333333;font-size:14px"><b>User Name</b></label>
+            <input type="text" id="userName" class="mt-2 p-2 w-full border rounded" style="font-size:14px">
+          </div>`;
+          break;
+        case 'Password':
+          fieldHTML = `<div class="mb-3">
+            <label for="userPassword" class="block text-gray-700" style="color:#333333;font-size:14px"><b>User Password</b></label>
+            <input type="password" id="userPassword" class="mt-1 p-2 w-full border rounded" style="font-size:14px">
+          </div>`;
+          break;
+        case 'Balance':
+          fieldHTML = `<div class="mb-3">
+            <label for="balance" class="block text-gray-700" style="color:#333333;font-size:14px"><b>balance</b></label>
+            <input type="number" id="balance" value="0" class="mt-1 p-2 w-full border rounded" style="font-size:14px">
+          </div>`;
+          break;
+        case 'Email':
+          fieldHTML = `<div class="mb-3">
+            <label for="email" class="block text-gray-700" style="color:#333333;font-size:14px"><b>Email</b></label>
+            <input type="email" id="email" class="mt-1 p-2 w-full border rounded" style="font-size:14px">
+          </div>`;
+          break;
+        case 'SkypeId':
+          fieldHTML = `<div class="mb-3">
+            <label for="skypeId" class="block text-gray-700" style="color:#333333;font-size:14px"><b>Skype Id</b></label>
+            <input type="text" id="skypeId" class="mt-1 p-2 w-full border rounded" style="font-size:14px">
+          </div>`;
+          break;
+        case 'RegistrationStatus':
+          fieldHTML = `<div class="mb-3">
+            <label for="registrationStatus" class="block text-gray-700" style="color:#333333;font-size:14px"><b>Select Registration Status</b></label>
+            <select id="registrationStatus" class="mt-1 p-2 w-full border rounded" style="font-size:13px" >
+              <option>Active</option>
+              <option>Inactive</option>
+            </select>
+          </div>`;
+          break;
+        case 'Status':
+          fieldHTML = `<div class="mb-3">
+            <label for="status" class="block text-gray-700" style="color:#333333;font-size:14px"><b>Select Status</b></label>
+            <select id="status" class="mt-1 p-2 w-full border rounded" style="font-size:13px">
+              <option>Active</option>
+              <option>Inactive</option>
+            </select>
+          </div>`;
+          break;
+      }
+      addUserForm.insertAdjacentHTML('beforeend', fieldHTML);
+    });
+  }
+
+  // Open Add User Modal and populate with selected fields
+  addUserBtn.addEventListener('click', () => {
+    populateAddUserForm();
+    addUserModal.classList.remove('hidden');
+  });
+
+  // Close Add User Modal
+  closeAddUserModalBtn.addEventListener('click', () => {
+    addUserModal.classList.add('hidden');
+  });
+
+  cancelAddUserBtn.addEventListener('click', () => {
+    addUserModal.classList.add('hidden');
+  });
+
+  addUserSubmitBtn.addEventListener('click', () => {
+    // Add user logic here
+    alert('User added');
+    addUserModal.classList.add('hidden');
+  });
+
+  // Populate Add User form on page load
+  document.addEventListener('DOMContentLoaded', populateAddUserForm);
+
+
+
+
+
+
+
+// THIS IS CODE TO SEND tO SERIALIZER
+$(document).ready(function() {
+  const csrftoken = $('meta[name="csrf-token"]').attr('content');
+    // Submit Add User Form
+    $('#addUserSubmitBtn').on('click', function(e) {
+      e.preventDefault();
+
+      const data = {
+        username: $('#userName').val(),
+        password: $('#userPassword').val(),
+        email: $('#email').val(),
+        role: 'regular',
+        skype_username: $('#skypeId').val(),
+      };
+
+      $.ajax({
+        url: 'http://127.0.0.1:8000/add-user/',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        headers: {
+          'X-CSRFToken': csrftoken
+        },
+        success: function(response) {
+          alert('User added successfully');
+          $('#addUserModal').addClass('hidden');
+        },
+        error: function(xhr, status, error) {
+          alert('Failed to add user: ' + xhr.responseText);
+        }
+      });
+    });
+  });
+
+
+
+
+
+  
+        $(document).ready(function() {
+            // AJAX POST request
+            $.ajax({
+                url: 'http://127.0.0.1:8000/accounts/list/',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    // Handle successful response
+                    console.log('Received data:', data);
+                    // Assuming data is an array of users, you can iterate through it
+                    // and do something with each user
+                    for (var i = 0; i < data.length; i++) {
+                        console.log('User', i+1, ':', data[i]);
+                        // Example: Append user information to a list
+                        $('#userList').append('<li>' + data[i].name + ': ' + data[i].email + '</li>');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle error
+                    console.error('Error:', status, error);
+                }
+            });
+        });
+</script>
+</body>
+</html>

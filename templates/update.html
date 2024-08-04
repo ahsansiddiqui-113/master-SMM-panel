@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.2/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {},
+        },
+      };
+    </script>
+    <style>
+     
+      .emoji {
+        display: inline-block;
+        font-size: 18px;
+        color: #000000;
+        transform: rotate(270deg);
+      }
+    </style>
+  </head>
+  <body class="bg-white-100">
+
+    <nav class="bg-white-200 mb-4 p-4" style="background-color: #F8F8F8;"> 
+      <div class="container mx-auto flex justify-between items-center">
+          <div class="flex items-center gap-4 nav-container">
+              <div class="hidden md:flex space-x-6" id="nav">
+                <a style="color: #827f7f;" href="/main-app/users/">Users</a>
+                <a style="color: #827f7f;" href="/main-app/orders/">Orders</a>
+                <a style="color: #827f7f;" href="/main-app/subscriptions/">Subscription</a>
+                <a style="color: #827f7f;" href="/main-app/tasks/"><span class="inline-block"><p>Tasks <span style="border-radius: 15px; background-color: #F0AD4E; font-weight: 700; line-height: 1; color: white; padding: 2px 7px; font-size: 12px;">0</span></p></span></a>
+                <a style="color: #827f7f;" href="/main-app/services/">Services</a>
+                <a style="color: #827f7f;" href="/main-app/tickets/"><span class="inline-block"><p>Tickets <span class="px-2 py-1" style="border-radius: 10px; padding: 2px 7px; color: white; background-color: #F0AD4E; font-size: 12px;">0</span></p></span></a>
+                <a style="color: #827f7f;" href="/main-app/reports/">Reports</a>
+                <a style="color: #827f7f;" href="/main-app/affiliates/">Affiliates</a>
+                <a style="color: #827f7f;" href="/main-app/appearances/">Appearance</a>
+                <a style="color: #827f7f;" href="/main-app/settings/">Settings</a>
+              </div>
+          </div>
+          <div class="flex items-center gap-7 mr-5"> <!-- Adjusted 'gap-0' to 'gap-2' for spacing between bell, moon, and person -->
+              <a href="#" class="text-white-700 hover:text-white-900 bell-wrapper">
+                  <i class="fas fa-bell"></i>
+                  <span class="notification-dot"></span>
+              </a>
+              <a href="#" class="text-white-700 hover:text-white-900"><i class="fas fa-moon" style="color: #6d6c6c;"></i></a>
+              <a href="#" class="icon-circle text-white-700 hover:text-white-900" style="color: #F8F8F8;">
+                  <i class="bi bi-person" style="position: relative; bottom: 12px; right: 2px; color: #F8F8F8;"></i>            
+              </a>
+              
+              <div class="dropdown" style="margin-left: -25px;"> <!-- Adjusted margin-left for sort down icon -->
+                  <i style="font-size: 10px;color: #6D6C6C;" class="fas fa-sort-down" onclick="toggleDropdown()"></i>
+              </div>
+            </div>
+  </nav>
+
+    <div class="mt-3 pl-5 pr-5">
+      <div class="overflow-x-auto">
+        <table
+          class="min-w-full  bg-white border-collapse border border-gray-300"
+        >
+          <thead>
+            <tr class="bg-gray-50">
+              <th
+                class="border-b border-white-300 pl-2 w-[50px] text-left text-[14px] py-3"
+              >
+                <div
+                  class="border border-[#E6E6E6] w-5 flex justify-center items-center py-[6px] px-3 rounded-[4px]"
+                >
+                  <input type="checkbox" class="cursor-pointer" />
+                </div>
+              </th>
+              <th
+                class="border-b border-white-300 p-0 pt-2 pb-1 text-xs lg:text-[14px] text-left whitespace-nowrap"
+              >
+                Service
+              </th>
+              <th
+                class="border-b whitespace-nowrap border-white-300 p-0 pt-2 pb-1 text-xs lg:text-[14px] w-[15%] text-left"
+              >
+                Date
+              </th>
+              <th
+                class="border-b border-white-300 p-0 pt-2 pb-1 text-xs lg:text-[14px] text-left"
+              >
+                Update
+              </th>
+              <th
+                class="border-b border-white-300 p-0 pt-2 pb-1 text-xs lg:text-[14px]  text-left"
+              >
+                Status
+              </th>
+            </tr>
+          </thead>
+
+          <tbody id="table-body">
+            <!-- dynamicaly data row -->
+          </tbody>
+        </table>
+      </div>
+
+      <script>
+        const data = [
+          {
+            serviceId: "8785",
+            serviceText: "Youtube service text",
+            service: "2024-04-23 05:30:00",
+            provider: "Service maximum quantity changes",
+          },
+          {
+            serviceId: "8765",
+            serviceText: "Youtube service text",
+            service: "2024-04-23 05:30:00",
+            provider: "Service maximum quantity changes",
+          },
+          {
+            serviceId: "2105",
+            serviceText: "Youtube service text",
+            service: "2024-04-23 05:30:00",
+            provider: "Service maximum quantity changes",
+          },
+          {
+            serviceId: "2205",
+            serviceText: "Youtube service text",
+            service: "2024-04-23 05:30:00",
+            provider: "Service maximum quantity changes",
+          },
+
+          // Add more objects as needed up to 20 or more
+        ];
+
+        function createRow(data) {
+          return `
+              <tr>
+                  <td class="border-b border-gray-300  w-[50px]  pl-2    text-left py-3">
+                      <div class="w-5 flex justify-center items-center py-[6px] px-3 rounded-[4px]">
+                          <input type="checkbox" class="cursor-pointer">
+                      </div>
+                  </td>
+                  <td class="border-b border-gray-300 p-0 pt-2 pb-1 text-left text-xs lg:text-[14px]">
+                    <div class="flex gap-2 items-center">
+                      <div class="border border-gray-300 py-[2px] rounded-[4px] px-3">${data.serviceId}</div>
+                    ${data.serviceText}
+                    </div>
+                    </td>
+                  <td class="border-b border-gray-300 p-0 pt-2 pb-1 w-[15%] text-left text-xs lg:text-[14px]">
+                    ${data.service}
+                    </td> 
+                  <td class="border-b border-gray-300 p-0 pt-2 pb-1 w-[20%] text-left text-xs lg:text-[14px]" >
+                ${data.provider}
+                    </td>
+                 <td class="border-b border-gray-300 text-end xl:text-end pr-0 xl:pr-4 w-[100px] relative">
+                 <div class="relative">
+                 <div class="flex items-center gap-1 border rounded-[6px] px-[9px] text-black text-[13.5px] border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer">
+                 <span>Action</span>
+                 <i class="fas fa-sort-down pb-1"></i>
+                 </div>
+                 <div class="absolute right-0 mt-2  w-40 bg-white rounded-md shadow-xl z-50 hidden group-hover:block">
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Cancel Order</a>
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Edit Order</a>
+                <a href="#" class="block text-start px-4 py-2 text-gray-800 hover:bg-gray-100">Delete Order</a>
+                </div>
+                </div>
+                </td>
+              </tr>
+          `;
+        }
+
+        // To toggle the dropdown, add an event listener to the button
+        document.addEventListener("click", function (e) {
+          if (e.target.matches(".relative > div")) {
+            let dropdown = e.target.nextElementSibling;
+            dropdown.classList.toggle("hidden");
+          } else {
+            let dropdowns = document.querySelectorAll(".relative .z-40");
+            dropdowns.forEach(function (dropdown) {
+              dropdown.classList.add("hidden");
+            });
+          }
+        });
+
+        // Insert rows into the table
+        const tbody = document.getElementById("table-body");
+        data.forEach((rowData) => {
+          tbody.innerHTML += createRow(rowData);
+        });
+      </script>
+    </div>
+  </body>
+</html>

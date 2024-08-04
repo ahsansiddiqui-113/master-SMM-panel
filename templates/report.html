@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #ffffff;
+        min-width: 120px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        border: 1px solid #c9c9c9;
+        border-radius: 6px;
+      }
+
+      .dropdown-content a {
+        color: black;
+        padding: 8px 12px;
+        text-decoration: none;
+        display: block;
+        font-size: 13px;
+      }
+
+      .dropdown-content a:hover {
+        background-color: #e6e6e6;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <nav class="bg-white-200 mb-3" style="background-color: #F8F8F8;"> 
+      <div class="flex  items-center justify-between mx-[8px] border-b">
+          <div class="flex items-center  nav-container text-[14px] text-[#777777] font-normal ">
+              <div class="hidden md:flex space-x-2" id="nav">
+                <a href="admin_panel.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Users</a>
+                <a href="order.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Orders</a>
+                <a href="subscription.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Subscription</a>
+                <a href="task.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit"><span class="inline-block"><p>Tasks <span style="border-radius: 15px; background-color: #F0AD4E; font-weight: 700; line-height: 1; color: white; padding: 2px 7px; font-size: 12px;">0</span></p></span></a>
+                <a href="service.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Services</a>
+                <a href="tickets.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit"><span class="inline-block"><p>Tickets <span class="px-2 py-1" style="border-radius: 10px; padding: 2px 7px; color: white; background-color: #F0AD4E; font-weight: 700; font-size: 12px;">0</span></p></span></a>
+                <a href="report.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Reports</a>
+                <a href="affiliatepage.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Affiliates</a>
+                <a href="appearance.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Appearance</a>
+                <a href="Setting.html" class="hover:bg-[#E7E7E7] py-[15px] px-3 h-fit">Settings</a>
+              </div>
+          </div>
+          <div class="flex items-center gap-8 mr-[10px]">
+              <a href="#" class="text-white-700 hover:text-white-900 bell-wrapper">
+                  <i class="fas fa-bell"></i>
+                  <span class="notification-dot"></span>
+              </a>
+              <a href="#" class="text-white-700 hover:text-white-900"><i class="fas fa-moon" style="color: #6d6c6c;"></i></a>
+              <div class="flex items-center">
+                <a href="#" class="icon-circle text-white-700 hover:text-white-900" style="color: #F8F8F8;">
+                    <i class="bi bi-person relative top-0  text-gray-500 right-2 text-[#F8F8F8] bg-[#F8F8F8]" style=" bottom: 12px; "></i>            
+                </a>   
+                <div class="dropdown">
+                    <i class="fas fa-sort-down cursor-pointer text-black text-[12px]" onclick="toggleDropdown()"></i>
+              </div>
+              </div>
+            </div>
+  </nav>
+
+    <section class="mt-3 pl-5 pr-5">
+      <div class="mb-3 gap-4 lg:flex justify-between items-center">
+        <div class="md:flex space-x-0 gap-3 cursor-pointer text-[#337ab7]">
+          <div
+          id="paymentsBtn"
+            class="btn hover:bg-[#E6E6E6] rounded-[5px] text-[13.5px] py-[8px] md:py-[6px] px-[12px] bg-[#ffffff] hover:text-black"
+          >
+            Payments
+          </div>
+
+          <div
+          id="ordersBtn"
+            class="btn hover:bg-[#E6E6E6] rounded-[5px] text-[13.5px] py-[8px] md:py-[6px] px-[12px] bg-[#ffffff] hover:text-black"
+          >
+            Orders
+          </div>
+
+          <div
+          id="ticketsBtn"
+            class="btn hover:bg-[#E6E6E6] rounded-[5px] text-[13.5px] py-[8px] md:py-[6px] px-[12px] bg-[#ffffff] hover:text-black"
+          >
+            Tickets
+          </div>
+          <div
+          id="profitsBtn"
+            class="btn hover:bg-[#E6E6E6] rounded-[5px] text-[13.5px] py-[8px] md:py-[6px] px-[12px] bg-[#ffffff] hover:text-black"
+          >
+            Profits
+          </div>
+        </div>
+
+        <div class="md:flex md:items-center md:gap-4">
+          <div class="dropdown">
+            <div
+              class="dropbtn flex items-center gap-1 border rounded-[6px] border-gray-300 text-end xl:text-end text-black text-[13.5px] px-4 py-1 border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer"
+            >
+              <span>This Month</span>
+              <i class="fas fa-sort-down pb-1"></i>
+            </div>
+            <div class="dropdown-content">
+              <a href="#">Days</a>
+              <a href="#">Weeks</a>
+              <a href="#">Years</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-center mb-4">
+        <div
+          id="chartBtn"
+          class="dropbtn flex items-center border-[2px] rounded-[4px] border-gray-300 text-end xl:text-end text-black text-[13.5px] px-4 py-1 border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] bg-[#E6E6E6] cursor-pointer"
+        >
+          <span>Chart</span>
+        </div>
+        <div
+          id="tableBtn"
+          class="dropbtn flex items-center border-[2px] rounded-[4px] border-gray-300 text-end xl:text-end text-black text-[13.5px] px-4 py-1 border-[#c9c9c9] bg-[#ffffff] text-black hover:bg-[#E6E6E6] cursor-pointer"
+        >
+          <span>Table</span>
+        </div>
+      </div>
+
+      <div id="chartContainer" class="">
+        <canvas
+          id="myChart"
+          class="border border-gray-500 rounded-[2px]"
+        ></canvas>
+        <div>
+          <table
+            class="w-full bg-white border-collapse border border-gray-300 mt-4"
+          >
+            <thead>
+              <tr class="bg-gray-50">
+                <th
+                  class="border-b border-white-300 flex items-center gap-1 p-1 pl-2 text-left text-[14px] py-3"
+                >
+                  <div
+                    class="border border-[#E6E6E6] w-5 flex justify-center items-center py-[6px] px-3 rounded-[4px]"
+                  >
+                    <input type="checkbox" class="cursor-pointer" />
+                  </div>
+                  <span class="text-xs whitespace-nowrap lg:text-[14px]"
+                    >Payment Method</span
+                  >
+                </th>
+                <th
+                  class="border-b border-white-300 w-[100px] p-0 pt-2 pb-1 text-xs lg:text-[14px] text-left whitespace-nowrap w-[70px]"
+                >
+                  Amount
+                  <i class="fas fa-sort-down -mr-[13px] pb-1"></i>
+                  <i class="fas fa-sort-down -mr-3 rotate-180"></i>
+                </th>
+
+                <th
+                  class="border-b border-white-300 w-[100px] p-0 pt-2 pb-1 text-xs lg:text-[14px] text-left whitespace-nowrap w-[70px]"
+                >
+                  Count
+                  <i class="fas fa-sort-down -mr-[13px] pb-1"></i>
+                  <i class="fas fa-sort-down -mr-3 rotate-180"></i>
+                </th>
+                <th
+                  class="border-b border-white-300 w-[100px] p-0 pt-2 pb-1 text-xs lg:text-[14px] text-left whitespace-nowrap w-[70px]"
+                >
+                  Average
+                  <i class="fas fa-sort-down -mr-[13px] pb-1"></i>
+                  <i class="fas fa-sort-down -mr-3 rotate-180"></i>
+                </th>
+              </tr>
+            </thead>
+
+            <tbody id="table-body">
+              <!-- dynamicaly data row -->
+            </tbody>
+
+            <tr>
+              <td
+                class="border-b border-gray-300 flex items-center gap-1 pl-2 text-left py-3"
+              >
+                <span class="text-xs whitespace-nowrap font-bold">Total</span>
+              </td>
+
+              <td
+                class="border-b border-gray-300 p-0 pt-2 pb-1 w-[15%] font-bold text-left text-xs lg:text-[14px]"
+              >
+                $6.00
+              </td>
+
+              <td
+                class="border-b border-gray-300 p-0 pt-2 w-[25%] pb-1 font-bold text-xs lg:text-[14px]"
+              >
+                3
+              </td>
+
+              <td
+                class="border-b border-gray-300 p-0 pt-2 pb-1 w-[90px] font-bold text-xs lg:text-[14px] text-start"
+              >
+                $44.50
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div id="tableContainer" class="hidden">
+        <table
+          class="w-full bg-white border-collapse border border-gray-300 mt-4"
+        >
+          <thead>
+            <tr class="bg-gray-50">
+              <th
+                class="border-b border-white-300 flex items-center gap-1 p-1 pl-2 text-left text-[14px] py-3"
+              >
+                <div
+                  class="border border-[#E6E6E6] w-5 flex justify-center items-center py-[6px] px-3 rounded-[4px]"
+                >
+                  <input type="checkbox" class="cursor-pointer" />
+                </div>
+                <span class="text-xs whitespace-nowrap lg:text-[14px]"
+                  >Payment Method</span
+                >
+              </th>
+              <th
+                class="border-b border-white-300 w-[100px] p-0 pt-2 pb-1 text-xs lg:text-[14px] text-left whitespace-nowrap w-[70px]"
+              >
+                Amount
+                <i class="fas fa-sort-down -mr-[13px] pb-1"></i>
+                <i class="fas fa-sort-down -mr-3 rotate-180"></i>
+              </th>
+
+              <th
+                class="border-b border-white-300 w-[100px] p-0 pt-2 pb-1 text-xs lg:text-[14px] text-left whitespace-nowrap w-[70px]"
+              >
+                Count
+                <i class="fas fa-sort-down -mr-[13px] pb-1"></i>
+                <i class="fas fa-sort-down -mr-3 rotate-180"></i>
+              </th>
+              <th
+                class="border-b border-white-300 w-[100px] p-0 pt-2 pb-1 text-xs lg:text-[14px] text-left whitespace-nowrap w-[70px]"
+              >
+                Average
+                <i class="fas fa-sort-down -mr-[13px] pb-1"></i>
+                <i class="fas fa-sort-down -mr-3 rotate-180"></i>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody id="table2-body">
+            <!-- dynamicaly data row -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <script>
+      const data = [
+        {
+          id: "242417",
+          service: "$3.00",
+          orderId: "1",
+          max: "$44.0",
+          payment: "Free",
+        },
+        {
+          id: "105",
+          service: "$3.00",
+          orderId: "2",
+          max: "$1.50",
+          payment: "Manual",
+        },
+      ];
+      function createRow(data) {
+        return `
+                <tr>
+                    <td class="border-b border-gray-300 flex items-center gap-1    pl-2    text-left py-3">
+                        <div class="w-5 flex justify-center items-center py-[6px] px-3 rounded-[4px]">
+                            <input type="checkbox" class="cursor-pointer">
+                        </div>
+                        <span class="text-xs whitespace-nowrap">${data.payment}</span>
+                    </td>
+                  
+                    <td class="border-b border-gray-300 p-0 pt-2 pb-1 w-[15%] text-left text-xs lg:text-[14px]" >${data.service}</td>
+                    
+                    <td class="border-b border-gray-300 p-0 pt-2  w-[25%] pb-1  text-xs lg:text-[14px] " >
+                      ${data.orderId}
+                      </td>
+                  
+                  
+                    <td class="border-b border-gray-300 p-0 pt-2 pb-1 w-[90px]   text-xs lg:text-[14px]  text-start" >${data.max}</td>    
+                </tr>    
+          `;
+      }
+
+      const tbody = document.getElementById("table-body");
+      data.forEach((rowData) => {
+        tbody.innerHTML += createRow(rowData);
+      });
+
+      const table2body= document.getElementById("table2-body");
+      data.forEach((rowData)=>{
+        table2body.innerHTML += createRow(rowData)
+      })
+      document.querySelector(".dropbtn").addEventListener("click", function () {
+        const dropdownContent = this.nextElementSibling;
+        dropdownContent.style.display =
+          dropdownContent.style.display === "block" ? "none" : "block";
+      });
+
+      // Close the dropdown if the user clicks outside of it
+      window.onclick = function (event) {
+        if (!event.target.matches(".dropbtn, .dropbtn *")) {
+          const dropdowns = document.querySelectorAll(".dropdown-content");
+          dropdowns.forEach((dropdown) => {
+            if (dropdown.style.display === "block") {
+              dropdown.style.display = "none";
+            }
+          });
+        }
+      };
+
+      //chart or table tab
+      document
+        .getElementById("chartBtn")
+        .addEventListener("click", function () {
+          document.getElementById("chartContainer").classList.remove("hidden");
+          document.getElementById("tableContainer").classList.add("hidden");
+        });
+
+      document
+        .getElementById("tableBtn")
+        .addEventListener("click", function () {
+          document.getElementById("chartContainer").classList.add("hidden");
+          document.getElementById("tableContainer").classList.remove("hidden");
+        });
+      const ctx = document.getElementById("myChart").getContext("2d");
+
+      const defaultData = {
+        labels: ['24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02'],
+        datasets: [
+        {
+              label: "payment",
+              data: [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+              borderColor: "green",
+              fill: false,
+              tension: 0,
+            },
+            {
+              label: "Another Data",
+              data: [0, 0, 0, 0, 0, 0, 2, 60, 0, 0],
+              borderColor: "#ED7E8A",
+              fill: false,
+              tension: 0.4,
+            },
+        ],
+      };
+
+      const ordersData = {
+        labels: ['24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02'],
+        datasets: [
+        {
+              label: "order",
+              data: [0, 0, 10, 0, 0, 0, 1, 40, 0, 0],
+              borderColor: "green",
+              fill: false,
+              tension: 0,
+            },
+            {
+              label: "Another Data",
+              data: [0, 10, 0, 0, 0, 0, 2, 60, 0, 0],
+              borderColor: "#ED7E8A",
+              fill: false,
+              tension: 0.4,
+            },
+        ],
+      };
+
+      const ticketsData = {
+        labels: ['24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02'],
+        datasets: [
+        {
+              label: "tickets",
+              data: [0, 0, 0, 0, 0, 0, 1, 0, 2, 30],
+              borderColor: "green",
+              fill: false,
+              tension: 0,
+            },
+            {
+              label: "Another Data",
+              data: [0, 0, 0, 10, 0, 0, 2, 60, 0, 0],
+              borderColor: "#ED7E8A",
+              fill: false,
+              tension: 0.4,
+            },
+        ],
+        
+      };
+
+      const profitsData = {
+        labels: ['24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02', '24-04-02'],
+        datasets: [
+        {
+              label: "profits",
+              data: [0, 10, 0, 0, 0, 20, 1, 0, 0, 0],
+              borderColor: "green",
+              fill: false,
+              tension: 0,
+            },
+            {
+              label: "Another Data",
+              data: [0, 0, 0, 0, 0, 0, 2, 60, 0, 0],
+              borderColor: "#ED7E8A",
+              fill: false,
+              tension: 0.4,
+            },
+        ],
+      };
+
+   
+      //inital chart setup
+      const myChart = new Chart(ctx, {
+        type: "line",
+        data: defaultData,
+        options: {
+          responsive: true,
+          scales: {
+            x: {
+              title: {
+                display: true,
+              },
+              grid: {
+                display: false, // Hide vertical grid lines
+              },
+            },
+            y: {
+              title: {
+                display: true,
+              },
+              beginAtZero: true,
+              grid: {
+                display: true, // Show horizontal grid lines
+              },
+            },
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function (tooltipItem) {
+                  return (
+                    tooltipItem.dataset.label + ": " + tooltipItem.parsed.y
+                  );
+                },
+              },
+            },
+          },
+        },
+      });
+
+       // Change data on button click
+       document.getElementById('paymentsBtn').addEventListener('click', function () {
+        myChart.data = defaultData;
+        myChart.update();
+      });
+
+      document.getElementById('ordersBtn').addEventListener('click', function () {
+        myChart.data = ordersData;
+        myChart.update();
+      });
+
+      document.getElementById('ticketsBtn').addEventListener('click', function () {
+        myChart.data = ticketsData;
+        myChart.update();
+      });
+
+      document.getElementById('profitsBtn').addEventListener('click', function () {
+        myChart.data = profitsData;
+        myChart.update();
+      });
+
+    </script>
+  </body>
+</html>
